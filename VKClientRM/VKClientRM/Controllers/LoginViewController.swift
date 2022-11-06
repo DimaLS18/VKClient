@@ -7,7 +7,7 @@
 
 import UIKit
 /// Экран авторизации пользователя
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
 
     // MARK: - Constants
 
@@ -30,11 +30,11 @@ class LoginViewController: UIViewController {
 
     // MARK: - Private Outlets
 
-    @IBOutlet weak var loginTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var enterButton: UIButton!
-    @IBOutlet weak var forgotPasswordButton: UIButton!
-    @IBOutlet weak var mainScrollView: UIScrollView!
+    @IBOutlet private weak var loginTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
+    @IBOutlet private weak var enterButton: UIButton!
+    @IBOutlet private weak var forgotPasswordButton: UIButton!
+    @IBOutlet private weak var mainScrollView: UIScrollView!
 
     // MARK: - Lifecycle
 
@@ -55,7 +55,7 @@ class LoginViewController: UIViewController {
 
     // MARK: - IBAction
 
-    @IBAction func loginButtonAction(_ sender: UIButton) {
+    @IBAction private func loginButtonAction(_ sender: UIButton) {
 
         if checkLoginInfo() {
             performSegue(withIdentifier: Constants.loginSegueIdentifier, sender: self)
