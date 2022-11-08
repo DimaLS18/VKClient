@@ -18,13 +18,10 @@ final class GroupUserTableViewCell: UITableViewCell {
 
     // MARK: - Public Properties
 
-    var group = Group(groupName: Constants.emptyText, groupPhotoName: Constants.emptyText)
-
     // MARK: - Public Methods
 
     func configureCell(group: Group) {
         groupNameLabel.text = group.groupName
         groupPhotoImageView.image = UIImage(named: group.groupPhotoName)
-        self.group = group
     }
 }

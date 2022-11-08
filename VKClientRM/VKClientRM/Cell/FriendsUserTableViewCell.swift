@@ -9,6 +9,7 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     private enum Constants {
         static let emptyText = ""
+        static let friendPhotoOneText = "FriendPhotoOne"
     }
 
     // MARK: - Private Outlets
@@ -19,7 +20,7 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     // MARK: - Public Properties
 
-    var user = User(userName: Constants.emptyText, userPhotoName: Constants.emptyText)
+    var user = User(userName: Constants.emptyText, userPhotoName: Constants.friendPhotoOneText)
 
     // MARK: - Lifecycle
 
@@ -33,7 +34,6 @@ final class FriendsUserTableViewCell: UITableViewCell {
     func configureCell(user: User) {
         friendNameLabel.text = user.userName
         friendPhotoImageView.image = UIImage(named: user.userPhotoName)
-        self.user = user
     }
 
     // MARK: - Private Methods
