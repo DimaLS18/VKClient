@@ -2,7 +2,7 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
-/// алерт
+/// расширение алерта
 extension UIViewController {
     // MARK: - Constants
 
