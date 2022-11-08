@@ -17,16 +17,16 @@ final class FriendsUserTableViewCell: UITableViewCell {
     @IBOutlet private var friendPhotoImageView: UIImageView!
     @IBOutlet private var shadowView: ShadowView!
 
+    // MARK: - Public Properties
+
+    var user = User(userName: Constants.emptyText, userPhotoName: Constants.emptyText)
+
     // MARK: - Lifecycle
 
     override func awakeFromNib() {
         super.awakeFromNib()
         setupFriendPhoto()
     }
-
-    // MARK: - Public Properties
-
-    var user = User(userName: Constants.emptyText, userPhotoName: Constants.emptyText)
 
     // MARK: - Public Methods
 

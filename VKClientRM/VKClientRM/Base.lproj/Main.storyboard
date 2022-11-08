@@ -379,7 +379,7 @@
                                 <connections>
                                     <outlet property="groupNameLabel" destination="GlQ-Zz-5UI" id="3qd-n4-6D3"/>
                                     <outlet property="groupPhotoImageView" destination="13i-Ks-Thr" id="BeY-WL-jkh"/>
-                                    <segue destination="PFq-Jf-iVd" kind="unwind" identifier="AddGroup" unwindAction="addGroupWithSegue:" id="nIS-1l-ivD"/>
+                                    <segue destination="PFq-Jf-iVd" kind="unwind" identifier="AddGroupAction" unwindAction="AddGroupActionWithSegue:" id="nIS-1l-ivD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

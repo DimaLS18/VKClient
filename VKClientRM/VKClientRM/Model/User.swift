@@ -3,6 +3,8 @@
 
 /// модель пользователя
 struct User {
+    /// Имя пользователя
     let userName: String
+    /// Имя фото самого пользователя
     let userPhotoName: String
 }

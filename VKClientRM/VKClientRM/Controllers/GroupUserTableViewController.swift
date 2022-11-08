@@ -9,7 +9,7 @@ final class GroupUserTableViewController: UITableViewController {
     private enum Constants {
         static let segueID = "GoToSearchGroupTableVC"
         static let groupUserCellID = "GroupUserCell"
-        static let addGroupSegueID = "AddGroup"
+        static let addGroupActionSegueID = "AddGroupAction"
         static let groupUserPhotoOneName = "FriendPhotoOne"
         static let groupUserPhotoSecondName = "FriendPhotoSecond"
         static let groupUserPhotoThirdName = "FriendPhotoThird"
@@ -37,9 +37,9 @@ final class GroupUserTableViewController: UITableViewController {
 
     // MARK: - IBAction
 
-    @IBAction private func addGroup(segue: UIStoryboardSegue) {
+    @IBAction private func addGroupAction(segue: UIStoryboardSegue) {
         guard
-            segue.identifier == Constants.addGroupSegueID,
+            segue.identifier == Constants.addGroupActionSegueID,
             let source = segue.source as? SearchGroupTableViewController,
             let indexPath = source.tableView.indexPathForSelectedRow,
             let group = source.returnGroup(index: indexPath.row),
