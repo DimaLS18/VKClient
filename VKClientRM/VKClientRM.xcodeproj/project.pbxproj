@@ -105,10 +105,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DBE0135291657CB00CE4E57 /* Build configuration list for PBXNativeTarget "VKClientRM" */;
 			buildPhases = (
+				2D4CB2D4291A2BA200410459 /* SwiftFormat */,
+				2DBE01382916584000CE4E57 /* SwiftLint */,
 				2DBE011D291657CA00CE4E57 /* Sources */,
 				2DBE011E291657CA00CE4E57 /* Frameworks */,
 				2DBE011F291657CA00CE4E57 /* Resources */,
-				2DBE01382916584000CE4E57 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -166,6 +167,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2D4CB2D4291A2BA200410459 /* SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftFormat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=/Users/dimakovrigin/.mint/bin:$PATH\nif which swiftformat > /dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/realm/SwiftLint\"\nfi\n\n\n";
+		};
 		2DBE01382916584000CE4E57 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

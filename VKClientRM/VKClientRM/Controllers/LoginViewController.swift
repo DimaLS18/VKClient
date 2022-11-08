@@ -1,14 +1,9 @@
-//
-//  ViewController.swift
-//  VKClientRM
-//
-//  Created by Dima Kovrigin on 05.11.2022.
-//
+// LoginViewController.swift
+// Copyright © RoadMap. All rights reserved.
 
 import UIKit
 /// Экран авторизации пользователя
 final class LoginViewController: UIViewController {
-
     // MARK: - Constants
 
     private enum Constants {
@@ -30,11 +25,11 @@ final class LoginViewController: UIViewController {
 
     // MARK: - Private Outlets
 
-    @IBOutlet private weak var loginTextField: UITextField!
-    @IBOutlet private weak var passwordTextField: UITextField!
-    @IBOutlet private weak var enterButton: UIButton!
-    @IBOutlet private weak var forgotPasswordButton: UIButton!
-    @IBOutlet private weak var mainScrollView: UIScrollView!
+    @IBOutlet private var loginTextField: UITextField!
+    @IBOutlet private var passwordTextField: UITextField!
+    @IBOutlet private var enterButton: UIButton!
+    @IBOutlet private var forgotPasswordButton: UIButton!
+    @IBOutlet private var mainScrollView: UIScrollView!
 
     // MARK: - Lifecycle
 
@@ -56,7 +51,6 @@ final class LoginViewController: UIViewController {
     // MARK: - IBAction
 
     @IBAction private func loginButtonAction(_ sender: UIButton) {
-
         if checkLoginInfo() {
             performSegue(withIdentifier: Constants.loginSegueIdentifier, sender: self)
         } else {
@@ -83,7 +77,6 @@ final class LoginViewController: UIViewController {
     @objc private func keyboardHideTapAction() {
         mainScrollView.endEditing(true)
     }
-
 
     private func setupView() {
         setupMainView()
@@ -154,9 +147,9 @@ final class LoginViewController: UIViewController {
     }
 
     private func addTapGesture() {
-          let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(keyboardHideTapAction))
-          mainScrollView.addGestureRecognizer(hideKeyboardGesture)
-      }
+        let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(keyboardHideTapAction))
+        mainScrollView.addGestureRecognizer(hideKeyboardGesture)
+    }
 
     private func removeKeyboardObserver() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -172,4 +165,3 @@ extension LoginViewController: UITextFieldDelegate {
         return true
     }
 }
-

@@ -1,9 +1,5 @@
-//
-//  UIViewController+Extension.swift
-//  VKClientRM
-//
-//  Created by Dima Kovrigin on 07.11.2022.
-//
+// UIViewController+Extension.swift
+// Copyright © RoadMap. All rights reserved.
 
 import UIKit
 /// алерт

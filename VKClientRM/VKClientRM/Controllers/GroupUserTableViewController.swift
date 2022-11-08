@@ -1,10 +1,6 @@
-//
-//  GroupUserTableViewController.swift
-//  VKClientRM
-//
-//  Created by Dima Kovrigin on 05.11.2022.
-//
+// GroupUserTableViewController.swift
+// Copyright © RoadMap. All rights reserved.
 
 import UIKit
- /// экран с группами пользователей
+/// экран с группами пользователей
 final class GroupUserTableViewController: UITableViewController {}
