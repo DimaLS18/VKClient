@@ -27,7 +27,6 @@ final class GroupUserTableViewCell: UITableViewCell {
         selectionStyle = .none
         groupNameLabel.text = group.groupName
         groupPhotoImageView.image = UIImage(named: group.groupPhotoName)
-        self.group = group
     }
 
     func animateGroupPhotoImageView() {
