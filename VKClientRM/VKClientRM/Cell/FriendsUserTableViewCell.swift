@@ -20,7 +20,11 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     // MARK: - Public Properties
 
-    var user = User(userName: Constants.emptyText, userPhotoName: Constants.friendPhotoOneText)
+    var user = User(
+        userName: Constants.emptyText,
+        userPhotoName: Constants.emptyText,
+        userPhotosName: [Constants.friendPhotoOneText]
+    )
 
     // MARK: - Lifecycle
 

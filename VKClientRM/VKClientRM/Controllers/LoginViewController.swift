@@ -2,7 +2,8 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
-/// Экран авторизации пользователя
+
+/// Окно авторизации пользователя
 final class LoginViewController: UIViewController {
     // MARK: - Constants
 
@@ -20,6 +21,7 @@ final class LoginViewController: UIViewController {
         static let correctLoginText = "admin"
         static let correctPasswordText = "admin"
         static let okText = "OK"
+        static let emptyText = ""
         static let fontSizeForTextNumber: CGFloat = 18
     }
 
@@ -30,12 +32,15 @@ final class LoginViewController: UIViewController {
     @IBOutlet private var enterButton: UIButton!
     @IBOutlet private var forgotPasswordButton: UIButton!
     @IBOutlet private var mainScrollView: UIScrollView!
+    @IBOutlet private var leftPointView: UIView!
+    @IBOutlet private var middlePointView: UIView!
+    @IBOutlet private var rightPointView: UIView!
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        setupUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -52,7 +57,7 @@ final class LoginViewController: UIViewController {
 
     @IBAction private func loginButtonAction(_ sender: UIButton) {
         if checkLoginInfo() {
-            performSegue(withIdentifier: Constants.loginSegueIdentifier, sender: self)
+            threePointsAnination()
         } else {
             showAlert(title: Constants.titleAlertText, message: Constants.messageAlertText)
         }
@@ -74,20 +79,27 @@ final class LoginViewController: UIViewController {
         mainScrollView.scrollIndicatorInsets = UIEdgeInsets.zero
     }
 
-    @objc private func keyboardHideTapAction() {
+    @objc private func hideKeyboardAction() {
         mainScrollView.endEditing(true)
     }
 
-    private func setupView() {
+    private func setupUI() {
         setupMainView()
         setupLoginTextField()
         setupPasswordTextField()
         setupEnterButton()
         setupForgotPasswordButton()
+        setupPointViews()
     }
 
     private func setupMainView() {
         view.backgroundColor = UIColor(named: Constants.lightBlueColorName)
+    }
+
+    private func setupPointViews() {
+        leftPointView.layer.cornerRadius = leftPointView.frame.width / 2
+        middlePointView.layer.cornerRadius = middlePointView.frame.width / 2
+        rightPointView.layer.cornerRadius = rightPointView.frame.width / 2
     }
 
     private func setupLoginTextField() {
@@ -119,6 +131,40 @@ final class LoginViewController: UIViewController {
         forgotPasswordButton.layer.cornerRadius = 10
     }
 
+    private func threePointsAnination() {
+        UIView.animateKeyframes(
+            withDuration: 3,
+            delay: 0,
+            options: [],
+            animations: {
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0,
+                    relativeDuration: 0.33,
+                    animations: {
+                        self.leftPointView.alpha = 1
+                    }
+                )
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0.33,
+                    relativeDuration: 0.66,
+                    animations: {
+                        self.middlePointView.alpha = 1
+                    }
+                )
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0.66,
+                    relativeDuration: 1,
+                    animations: {
+                        self.rightPointView.alpha = 1
+                    }
+                )
+            },
+            completion: { _ in
+                self.performSegue(withIdentifier: Constants.loginSegueIdentifier, sender: self)
+            }
+        )
+    }
+
     private func checkLoginInfo() -> Bool {
         guard
             let loginText = loginTextField.text,
@@ -129,6 +175,11 @@ final class LoginViewController: UIViewController {
             return false
         }
         return true
+    }
+
+    private func addTapToMainScrollView() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardAction))
+        mainScrollView.addGestureRecognizer(tapGesture)
     }
 
     private func keyboardManager() {
@@ -144,11 +195,7 @@ final class LoginViewController: UIViewController {
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
-    }
-
-    private func addTapGesture() {
-        let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(keyboardHideTapAction))
-        mainScrollView.addGestureRecognizer(hideKeyboardGesture)
+        addTapToMainScrollView()
     }
 
     private func removeKeyboardObserver() {

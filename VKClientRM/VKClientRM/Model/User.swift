@@ -7,4 +7,6 @@ struct User {
     let userName: String
     /// Имя фото самого пользователя
     let userPhotoName: String
+    /// Имена фотографий пользователя
+    let userPhotosName: [String]
 }

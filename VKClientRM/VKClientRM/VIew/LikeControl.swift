@@ -86,4 +86,12 @@ import UIKit
         stackView.alignment = .center
         stackView.distribution = .fillEqually
     }
+
+    private func animateCountLikeLabel() {
+        UIView.animate(withDuration: 1) {
+            self.countLikeLabel.transform = self.countLikeLabel.transform.rotated(by: CGFloat.pi)
+            self.countLikeLabel.transform = self.countLikeLabel.transform.rotated(by: CGFloat.pi)
+            self.countLikeLabel.frame.origin.y += 100
+        }
+    }
 }
