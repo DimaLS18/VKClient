@@ -2,7 +2,10 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
-/// экран с фотографиями пользователя
+
+import UIKit
+
+/// Экран с фотографиями пользователя
 final class PhotosUserCollectionViewController: UICollectionViewController {
     // MARK: - Constants
 
@@ -14,7 +17,11 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     // MARK: - Private Properties
 
-    private var user = User(userName: Constants.emptyText, userPhotoName: Constants.emptyText)
+    private var user = User(
+        userName: Constants.emptyText,
+        userPhotoName: Constants.emptyText,
+        userPhotosName: [Constants.friendPhotoOneName]
+    )
 
     // MARK: - Public Methods
 
@@ -23,7 +30,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        1
+        user.userPhotosName.count
     }
 
     override func collectionView(
@@ -34,9 +41,40 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: Constants.photosUserCellID,
                 for: indexPath
-            ) as? PhotosUserCollectionViewCell
+            ) as? PhotosUserCollectionViewCell,
+            indexPath.row < user.userPhotosName.count
         else { return UICollectionViewCell() }
-        cell.configureCell(userPhoto: user.userPhotoName)
+        cell.configureCell(userPhoto: user.userPhotosName[indexPath.row])
         return cell
+    }
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        guard let cellPhotosUser = cell as? PhotosUserCollectionViewCell else { return }
+        cellPhotosUser.animateShowFriendPhotoImageView()
+    }
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        didEndDisplaying cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        guard let cellPhotosUser = cell as? PhotosUserCollectionViewCell else { return }
+        cellPhotosUser.animateHideFriendPhotoImageView()
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension PhotosUserCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        CGSize(width: (collectionView.bounds.width) / 3, height: (collectionView.bounds.width) / 3)
     }
 }
