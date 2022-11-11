@@ -30,27 +30,39 @@ final class FriendsUserViewController: UIViewController {
         static let whiteColorName = "WhiteColor"
         static let darkBlueColorName = "DarkBlueColor"
         static let photosName = [
+            "NewsFotoFive",
             "FriendPhotoOne",
+            "FriendPhotoFour",
+            "NewsFotoOne",
+            "NewsFotoTwo",
+            "NewsFotoFive",
+            "FriendPhotoThird",
+            "FriendPhotoOne",
+            "NewsFotoFive",
+            "FriendPhotoSecond",
+            "FriendPhotoThird",
+            "NewsFotoFive",
+            "FriendPhotoOne",
+            "FriendPhotoSecond",
+            "NewsFotoFive",
+            "FriendPhotoThird",
+            "FriendPhotoOne",
+            "NewsFotoFive",
+            "FriendPhotoSecond",
+            "NewsFotoOne",
+            "NewsFotoTwo",
+            "FriendPhotoThird",
+            "NewsFotoFive",
+            "FriendPhotoOne",
+            "FriendPhotoFour",
             "FriendPhotoSecond",
             "FriendPhotoThird",
             "FriendPhotoOne",
+            "FriendPhotoFour",
             "FriendPhotoSecond",
+            "FriendPhotoFour",
             "FriendPhotoThird",
             "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
             "FriendPhotoOne",
             "FriendPhotoSecond",
             "FriendPhotoThird",
@@ -309,6 +321,7 @@ final class FriendsUserViewController: UIViewController {
     // MARK: - Private Methods
 
     private func setupView() {
+        view.backgroundColor = .white
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
         setupCharacters()

@@ -38,6 +38,7 @@ final class FriendsUserTableViewCell: UITableViewCell {
     func configureCell(user: User) {
         friendNameLabel.text = user.userName
         friendPhotoImageView.image = UIImage(named: user.userPhotoName)
+        self.user = user
     }
 
     // MARK: - Private Methods
