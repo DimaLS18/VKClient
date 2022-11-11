@@ -35,11 +35,6 @@ final class AnimatedFotoViewController: UIViewController {
 
     // MARK: - Private Methods
 
-    private func setupView() {
-        addSwipeToView()
-        setupImageViews()
-    }
-
     @objc private func didSwipeAction(gesture: UIGestureRecognizer) {
         guard let swipeGesture = gesture as? UISwipeGestureRecognizer else { return }
         switch swipeGesture.direction {
@@ -58,6 +53,11 @@ final class AnimatedFotoViewController: UIViewController {
         default:
             break
         }
+    }
+
+    private func setupView() {
+        addSwipeToView()
+        setupImageViews()
     }
 
     private func doAnimationForSwipeLeft() {

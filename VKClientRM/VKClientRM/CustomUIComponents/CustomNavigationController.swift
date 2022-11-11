@@ -46,7 +46,7 @@ final class CustomNavigationController: UINavigationController, UINavigationCont
 
     // MARK: - Private Methods
 
-    func setupNavigationController() {
+    private func setupNavigationController() {
         delegate = self
     }
 }
