@@ -4,7 +4,7 @@
 import UIKit
 
 /// Кастомный UINavigationController  с анимацией
-final class CustomNavigationController: UINavigationController, UINavigationControllerDelegate {
+final class CustomNavigationController: UINavigationController {
     // MARK: - Private Properties
 
     private let interactiveTransition = CustomInteractiveTransition()
@@ -42,11 +42,5 @@ final class CustomNavigationController: UINavigationController, UINavigationCont
             return CustomPopAnimator()
         }
         return nil
-    }
-
-    // MARK: - Private Methods
-
-    private func setupNavigationController() {
-        delegate = self
     }
 }
