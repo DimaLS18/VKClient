@@ -5,6 +5,17 @@ import UIKit
 
 /// Экран просмотра фотографий в большом виде
 final class AnimatedFotoViewController: UIViewController {
+    // MARK: - Constants
+
+    private enum Constants {
+        static let withDurationNunber = 0.6
+        static let numberZero = 0
+        static let relativeDurationNumber = 0.5
+        static let photoConstraintNumber = 50
+        static let firstNumber = 1
+        static let secondNumber = 2
+    }
+
     // MARK: - Private Outlets
 
     @IBOutlet private var currentUserPhotoImageView: UIImageView!
@@ -62,62 +73,82 @@ final class AnimatedFotoViewController: UIViewController {
 
     private func doAnimationForSwipeLeft() {
         prepareForAnimationForSwipeLeft()
-        UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: []) {
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5) {
-                self.currentUserPhotoTrailingConstraint.constant = 50
-                self.currentUserPhotoLeadingConstraint.constant = 50
+        UIView.animateKeyframes(
+            withDuration: Constants.withDurationNunber,
+            delay: TimeInterval(Constants.numberZero),
+            options: []
+        ) {
+            UIView.addKeyframe(
+                withRelativeStartTime: Double(Constants.numberZero),
+                relativeDuration: Constants.relativeDurationNumber
+            ) {
+                self.currentUserPhotoTrailingConstraint.constant = CGFloat(Constants.photoConstraintNumber)
+                self.currentUserPhotoLeadingConstraint.constant = CGFloat(Constants.photoConstraintNumber)
                 self.view.layoutIfNeeded()
             }
-            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {
+            UIView.addKeyframe(
+                withRelativeStartTime: Constants.relativeDurationNumber,
+                relativeDuration: Constants.relativeDurationNumber
+            ) {
                 self.view.layoutIfNeeded()
-                self.nextUserPhotoTrailingConstraint.constant = 0
-                self.nextUserPhotoLeadingConstraint.constant = 0
+                self.nextUserPhotoTrailingConstraint.constant = CGFloat(Constants.numberZero)
+                self.nextUserPhotoLeadingConstraint.constant = CGFloat(Constants.numberZero)
                 self.view.layoutIfNeeded()
             }
         }
     }
 
     private func prepareForAnimationForSwipeLeft() {
-        currentUserPhotoTrailingConstraint.constant = 0
-        currentUserPhotoLeadingConstraint.constant = 0
-        currentUserPhotoImageView.layer.zPosition = 1
+        currentUserPhotoTrailingConstraint.constant = CGFloat(Constants.numberZero)
+        currentUserPhotoLeadingConstraint.constant = CGFloat(Constants.numberZero)
+        currentUserPhotoImageView.layer.zPosition = CGFloat(Constants.firstNumber)
         currentUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex])
         nextUserPhotoTrailingConstraint.constant = -view.frame.width
         nextUserPhotoLeadingConstraint.constant = view.frame.width
-        nextUserPhotoImageView.layer.zPosition = 2
-        nextUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex + 1])
+        nextUserPhotoImageView.layer.zPosition = CGFloat(Constants.secondNumber)
+        nextUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex + Constants.firstNumber])
         view.layoutIfNeeded()
-        currentUserPhotoIndex += 1
+        currentUserPhotoIndex += Constants.firstNumber
     }
 
     private func doAnimationForSwipeRight() {
         prepareForAnimationForSwipeRight()
-        UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: []) {
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5) {
+        UIView.animateKeyframes(
+            withDuration: Constants.withDurationNunber,
+            delay: TimeInterval(Constants.numberZero),
+            options: []
+        ) {
+            UIView.addKeyframe(
+                withRelativeStartTime: Double(Constants.numberZero),
+                relativeDuration: Constants.relativeDurationNumber
+            ) {
                 self.currentUserPhotoTrailingConstraint.constant = -self.view.frame.width
                 self.currentUserPhotoLeadingConstraint.constant = self.view.frame.width
                 self.view.layoutIfNeeded()
             }
-            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {
+            UIView.addKeyframe(
+                withRelativeStartTime: Constants.relativeDurationNumber,
+                relativeDuration: Constants.relativeDurationNumber
+            ) {
                 self.view.layoutIfNeeded()
-                self.nextUserPhotoTrailingConstraint.constant = 0
-                self.nextUserPhotoLeadingConstraint.constant = 0
+                self.nextUserPhotoTrailingConstraint.constant = CGFloat(Constants.numberZero)
+                self.nextUserPhotoLeadingConstraint.constant = CGFloat(Constants.numberZero)
                 self.view.layoutIfNeeded()
             }
         }
     }
 
     private func prepareForAnimationForSwipeRight() {
-        currentUserPhotoTrailingConstraint.constant = 0
-        currentUserPhotoLeadingConstraint.constant = 0
-        currentUserPhotoImageView.layer.zPosition = 2
+        currentUserPhotoTrailingConstraint.constant = CGFloat(Constants.numberZero)
+        currentUserPhotoLeadingConstraint.constant = CGFloat(Constants.numberZero)
+        currentUserPhotoImageView.layer.zPosition = CGFloat(Constants.secondNumber)
         currentUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex])
-        nextUserPhotoTrailingConstraint.constant = 50
-        nextUserPhotoLeadingConstraint.constant = 50
-        nextUserPhotoImageView.layer.zPosition = 1
-        nextUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex - 1])
+        nextUserPhotoTrailingConstraint.constant = CGFloat(Constants.photoConstraintNumber)
+        nextUserPhotoLeadingConstraint.constant = CGFloat(Constants.photoConstraintNumber)
+        nextUserPhotoImageView.layer.zPosition = CGFloat(Constants.firstNumber)
+        nextUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex - Constants.firstNumber])
         view.layoutIfNeeded()
-        currentUserPhotoIndex -= 1
+        currentUserPhotoIndex -= Constants.firstNumber
     }
 
     private func setupImageViews() {
@@ -129,8 +160,8 @@ final class AnimatedFotoViewController: UIViewController {
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeAction(gesture:)))
         swipeLeft.direction = .left
         view.addGestureRecognizer(swipeLeft)
-        let swipeRigth = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeAction(gesture:)))
-        swipeRigth.direction = .right
-        view.addGestureRecognizer(swipeRigth)
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeAction(gesture:)))
+        swipeRight.direction = .right
+        view.addGestureRecognizer(swipeRight)
     }
 }

@@ -5,6 +5,14 @@ import UIKit
 
 /// Класс отвечающий за переходы между экранами
 final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
+    // MARK: - Constants
+
+    private enum Constants {
+        static let shouldFinish = 0.33
+        static let minNumber: Double = 0
+        static let maxNumber: Double = 1
+    }
+
     // MARK: - Public Properties
 
     var viewController: UIViewController? {
@@ -22,7 +30,7 @@ final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
 
     // MARK: - Private Properties
 
-    private var shouldFinish: Bool = false
+    private var isFinished: Bool = false
 
     // MARK: - Private methods
 
@@ -34,12 +42,12 @@ final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
         case .changed:
             let translation = recognizer.translation(in: recognizer.view)
             let relativeTranslation = translation.x / (recognizer.view?.bounds.width ?? 1)
-            let progress = max(0, min(1, relativeTranslation))
-            shouldFinish = progress > 0.33
+            let progress = max(Constants.minNumber, min(Constants.maxNumber, Double(Int(relativeTranslation))))
+            isFinished = progress > Constants.shouldFinish
             update(progress)
         case .ended:
             hasStarted = false
-            if shouldFinish {
+            if isFinished {
                 finish()
             } else {
                 cancel()
