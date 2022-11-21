@@ -9,7 +9,7 @@ final class NewsTableViewCell: UITableViewCell {
 
     private enum Constants {
         static let newsImageCollectionViewCellID = "NewsImageCollectionViewCell"
-        static let transformScale =  "transform.scale"
+        static let transformScale = "transform.scale"
     }
 
     // MARK: - Private Outlets
@@ -82,7 +82,6 @@ final class NewsTableViewCell: UITableViewCell {
         userPhotoNameImageView.addGestureRecognizer(tap)
         userPhotoNameImageView.isUserInteractionEnabled = true
     }
-
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

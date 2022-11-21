@@ -12,6 +12,8 @@ final class PhotosUserCollectionViewCell: UICollectionViewCell {
         static let transformScaleYText = "transform.scale.y"
         static let opacityText = "opacity"
         static let friendPhotoOneText = "FriendPhotoOne"
+        static let groupUserPhotoSecondName = "FriendPhotoSecond"
+        static let groupUserPhotoThirdName = "FriendPhotoThird"
     }
 
     // MARK: - Private Outlets

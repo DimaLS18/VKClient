@@ -3,8 +3,6 @@
 
 import UIKit
 
-import UIKit
-
 /// Экран с фотографиями пользователя
 final class PhotosUserCollectionViewController: UICollectionViewController {
     // MARK: - Constants
@@ -12,6 +10,9 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     private enum Constants {
         static let photosUserCellID = "PhotosUserCell"
         static let friendPhotoOneName = "FriendPhotoOne"
+        static let friendPhotoFour = "FriendPhotoFour"
+        static let newsFotoFive = "NewsFotoFive"
+        static let GoTAnimatedFotoVCSegueID = "GoTAnimatedFotoVCSegueID"
         static let emptyText = ""
     }
 
@@ -20,8 +21,14 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     private var user = User(
         userName: Constants.emptyText,
         userPhotoName: Constants.emptyText,
-        userPhotosName: [Constants.friendPhotoOneName]
+        userPhotosName: [
+            Constants.friendPhotoOneName,
+            Constants.friendPhotoFour,
+            Constants.newsFotoFive
+        ]
     )
+
+    private var currentIndexPressedCell = 0
 
     // MARK: - Public Methods
 
@@ -65,6 +72,17 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
         guard let cellPhotosUser = cell as? PhotosUserCollectionViewCell else { return }
         cellPhotosUser.animateHideFriendPhotoImageView()
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard
+            segue.identifier == Constants.GoTAnimatedFotoVCSegueID,
+            let destination = segue.destination as? AnimatedFotoViewController
+        else { return }
+        destination.configureBigPhotosUserVC(
+            currentUserPhotoIndex: currentIndexPressedCell,
+            userPhotosName: user.userPhotosName
+        )
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -76,5 +94,10 @@ extension PhotosUserCollectionViewController: UICollectionViewDelegateFlowLayout
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         CGSize(width: (collectionView.bounds.width) / 3, height: (collectionView.bounds.width) / 3)
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        currentIndexPressedCell = indexPath.row
+        performSegue(withIdentifier: Constants.GoTAnimatedFotoVCSegueID, sender: self)
     }
 }
