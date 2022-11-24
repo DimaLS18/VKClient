@@ -7,7 +7,7 @@ import Foundation
 final class Session {
     // MARK: - Class Properties
 
-    static var shared = Session()
+    static let shared = Session()
 
     // MARK: - Public Properties
 
