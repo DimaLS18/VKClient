@@ -1,11 +1,9 @@
 // NetworkService.swift
 // Copyright © RoadMap. All rights reserved.
 
-import Foundation
-
 
 import Alamofire
- import Foundation
+import Foundation
 
  /// NetworkService - класс для работы с сетью
  final class NetworkService {

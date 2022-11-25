@@ -36,6 +36,7 @@ final class WebViewLoginViewController: UIViewController {
 
     @IBOutlet var vkWebView: WKWebView!
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
           super.viewDidLoad()
           loadWebView()
