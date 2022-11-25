@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D41B372292F2E5300F70446 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D41B371292F2E5300F70446 /* Session.swift */; };
 		2D41B374292F2FC800F70446 /* WebViewLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D41B373292F2FC800F70446 /* WebViewLoginViewController.swift */; };
 		2D41B376292F30C300F70446 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D41B375292F30C300F70446 /* NetworkService.swift */; };
 		2D6AEF41291A621800D7D449 /* GroupUserTableViewCell..swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6AEF40291A621800D7D449 /* GroupUserTableViewCell..swift */; };
@@ -20,6 +19,8 @@
 		2D75246B291A58C700289EAC /* FriendsUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D75246A291A58C700289EAC /* FriendsUserTableViewCell.swift */; };
 		2D75246D291A58FF00289EAC /* CharacterSetControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D75246C291A58FF00289EAC /* CharacterSetControl.swift */; };
 		2D75246F291A591D00289EAC /* PhotosUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D75246E291A591D00289EAC /* PhotosUserCollectionViewCell.swift */; };
+		2D8E671B29307DE10081D7DA /* WebViewLoginViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8E671A29307DE10081D7DA /* WebViewLoginViewController+Extension.swift */; };
+		2D8E671D29307FC90081D7DA /* VKTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8E671C29307FC90081D7DA /* VKTabBarController.swift */; };
 		2D9371C0291D1BC90000F3E0 /* AnimatedFotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9371BF291D1BC90000F3E0 /* AnimatedFotoViewController.swift */; };
 		2D9371C6291D1CAF0000F3E0 /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9371C2291D1CAF0000F3E0 /* CustomInteractiveTransition.swift */; };
 		2D9371C7291D1CAF0000F3E0 /* CustomPushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9371C3291D1CAF0000F3E0 /* CustomPushAnimator.swift */; };
@@ -47,7 +48,6 @@
 
 /* Begin PBXFileReference section */
 		10C62CC1FDA58C9018C777AB /* Pods-VKClientRM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKClientRM.release.xcconfig"; path = "Target Support Files/Pods-VKClientRM/Pods-VKClientRM.release.xcconfig"; sourceTree = "<group>"; };
-		2D41B371292F2E5300F70446 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		2D41B373292F2FC800F70446 /* WebViewLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewLoginViewController.swift; sourceTree = "<group>"; };
 		2D41B375292F30C300F70446 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		2D6AEF40291A621800D7D449 /* GroupUserTableViewCell..swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserTableViewCell..swift; sourceTree = "<group>"; };
@@ -60,6 +60,8 @@
 		2D75246A291A58C700289EAC /* FriendsUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsUserTableViewCell.swift; sourceTree = "<group>"; };
 		2D75246C291A58FF00289EAC /* CharacterSetControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSetControl.swift; sourceTree = "<group>"; };
 		2D75246E291A591D00289EAC /* PhotosUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosUserCollectionViewCell.swift; sourceTree = "<group>"; };
+		2D8E671A29307DE10081D7DA /* WebViewLoginViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WebViewLoginViewController+Extension.swift"; sourceTree = "<group>"; };
+		2D8E671C29307FC90081D7DA /* VKTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKTabBarController.swift; sourceTree = "<group>"; };
 		2D9371BF291D1BC90000F3E0 /* AnimatedFotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedFotoViewController.swift; sourceTree = "<group>"; };
 		2D9371C2291D1CAF0000F3E0 /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
 		2D9371C3291D1CAF0000F3E0 /* CustomPushAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; };
@@ -103,7 +105,6 @@
 		2D41B370292E0A6300F70446 /* Hellper */ = {
 			isa = PBXGroup;
 			children = (
-				2D41B371292F2E5300F70446 /* Session.swift */,
 				2D41B375292F30C300F70446 /* NetworkService.swift */,
 			);
 			path = Hellper;
@@ -204,6 +205,7 @@
 				2D97DFC3291B67B800BC82AA /* NewsViewController.swift */,
 				2D9371BF291D1BC90000F3E0 /* AnimatedFotoViewController.swift */,
 				2D41B373292F2FC800F70446 /* WebViewLoginViewController.swift */,
+				2D8E671C29307FC90081D7DA /* VKTabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -213,6 +215,7 @@
 			children = (
 				2DBE0144291949E600CE4E57 /* UIViewController+Extension.swift */,
 				2D9371CA291E0A460000F3E0 /* CustomNavigationController+Extension.swift */,
+				2D8E671A29307DE10081D7DA /* WebViewLoginViewController+Extension.swift */,
 			);
 			path = Exttension;
 			sourceTree = "<group>";
@@ -391,8 +394,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D9371C6291D1CAF0000F3E0 /* CustomInteractiveTransition.swift in Sources */,
-				2D41B372292F2E5300F70446 /* Session.swift in Sources */,
 				2D9371CB291E0A460000F3E0 /* CustomNavigationController+Extension.swift in Sources */,
+				2D8E671D29307FC90081D7DA /* VKTabBarController.swift in Sources */,
 				2D752461291A4E9900289EAC /* ShadowView.swift in Sources */,
 				2DBE0145291949E600CE4E57 /* UIViewController+Extension.swift in Sources */,
 				2D75246B291A58C700289EAC /* FriendsUserTableViewCell.swift in Sources */,
@@ -419,6 +422,7 @@
 				2D6AEF43291A623600D7D449 /* SearchGroupTableViewCell.swift in Sources */,
 				2D9371C8291D1CAF0000F3E0 /* CustomPopAnimator.swift in Sources */,
 				2D41B374292F2FC800F70446 /* WebViewLoginViewController.swift in Sources */,
+				2D8E671B29307DE10081D7DA /* WebViewLoginViewController+Extension.swift in Sources */,
 				2D97DFBC291B670F00BC82AA /* NewsTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
