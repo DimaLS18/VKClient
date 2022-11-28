@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2D41B374292F2FC800F70446 /* WebViewLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D41B373292F2FC800F70446 /* WebViewLoginViewController.swift */; };
-		2D41B376292F30C300F70446 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D41B375292F30C300F70446 /* NetworkService.swift */; };
+		2D41B376292F30C300F70446 /* VKAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D41B375292F30C300F70446 /* VKAPIService.swift */; };
 		2D6AEF41291A621800D7D449 /* GroupUserTableViewCell..swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6AEF40291A621800D7D449 /* GroupUserTableViewCell..swift */; };
 		2D6AEF43291A623600D7D449 /* SearchGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6AEF42291A623600D7D449 /* SearchGroupTableViewCell.swift */; };
 		2D6AEF46291A626F00D7D449 /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6AEF45291A626F00D7D449 /* LikeControl.swift */; };
@@ -42,13 +42,16 @@
 		2DBE0140291664D500CE4E57 /* SearchGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE013F291664D500CE4E57 /* SearchGroupTableViewController.swift */; };
 		2DBE01422916652500CE4E57 /* PhotosUserCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE01412916652500CE4E57 /* PhotosUserCollectionViewController.swift */; };
 		2DBE0145291949E600CE4E57 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE0144291949E600CE4E57 /* UIViewController+Extension.swift */; };
+		2DC6D83A2934B44300529C2A /* NetworkRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC6D8392934B44300529C2A /* NetworkRequests.swift */; };
+		2DC6D83C2934B88800529C2A /* LoadNetworkDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC6D83B2934B88800529C2A /* LoadNetworkDataProtocol.swift */; };
+		2DC6D83E2934B8F900529C2A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC6D83D2934B8F900529C2A /* Session.swift */; };
 		66E41D1263649870823CE101 /* Pods_VKClientRM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91C08AE456415C58F1500662 /* Pods_VKClientRM.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		10C62CC1FDA58C9018C777AB /* Pods-VKClientRM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKClientRM.release.xcconfig"; path = "Target Support Files/Pods-VKClientRM/Pods-VKClientRM.release.xcconfig"; sourceTree = "<group>"; };
 		2D41B373292F2FC800F70446 /* WebViewLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewLoginViewController.swift; sourceTree = "<group>"; };
-		2D41B375292F30C300F70446 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		2D41B375292F30C300F70446 /* VKAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKAPIService.swift; sourceTree = "<group>"; };
 		2D6AEF40291A621800D7D449 /* GroupUserTableViewCell..swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserTableViewCell..swift; sourceTree = "<group>"; };
 		2D6AEF42291A623600D7D449 /* SearchGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroupTableViewCell.swift; sourceTree = "<group>"; };
 		2D6AEF45291A626F00D7D449 /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
@@ -84,6 +87,9 @@
 		2DBE013F291664D500CE4E57 /* SearchGroupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroupTableViewController.swift; sourceTree = "<group>"; };
 		2DBE01412916652500CE4E57 /* PhotosUserCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosUserCollectionViewController.swift; sourceTree = "<group>"; };
 		2DBE0144291949E600CE4E57 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		2DC6D8392934B44300529C2A /* NetworkRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequests.swift; sourceTree = "<group>"; };
+		2DC6D83B2934B88800529C2A /* LoadNetworkDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadNetworkDataProtocol.swift; sourceTree = "<group>"; };
+		2DC6D83D2934B8F900529C2A /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		91C08AE456415C58F1500662 /* Pods_VKClientRM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VKClientRM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAE71AF6223E991ABB88F6AC /* Pods-VKClientRM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKClientRM.debug.xcconfig"; path = "Target Support Files/Pods-VKClientRM/Pods-VKClientRM.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,7 +109,9 @@
 		2D41B370292E0A6300F70446 /* Hellper */ = {
 			isa = PBXGroup;
 			children = (
-				2D41B375292F30C300F70446 /* NetworkService.swift */,
+				2D41B375292F30C300F70446 /* VKAPIService.swift */,
+				2DC6D8392934B44300529C2A /* NetworkRequests.swift */,
+				2DC6D83B2934B88800529C2A /* LoadNetworkDataProtocol.swift */,
 			);
 			path = Hellper;
 			sourceTree = "<group>";
@@ -124,6 +132,7 @@
 				2D752463291A584D00289EAC /* User.swift */,
 				2D752465291A586400289EAC /* Group.swift */,
 				2D97DFB9291B664600BC82AA /* News.swift */,
+				2DC6D83D2934B8F900529C2A /* Session.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -400,15 +409,17 @@
 				2D752468291A588F00289EAC /* FriendsUserViewController.swift in Sources */,
 				2D9371C0291D1BC90000F3E0 /* AnimatedFotoViewController.swift in Sources */,
 				2D97DFC0291B673F00BC82AA /* NewsImageCollectionViewCell.swift in Sources */,
-				2D41B376292F30C300F70446 /* NetworkService.swift in Sources */,
+				2D41B376292F30C300F70446 /* VKAPIService.swift in Sources */,
 				2DBE0129291657CA00CE4E57 /* LoginViewController.swift in Sources */,
 				2D9371C7291D1CAF0000F3E0 /* CustomPushAnimator.swift in Sources */,
 				2D75246F291A591D00289EAC /* PhotosUserCollectionViewCell.swift in Sources */,
+				2DC6D83C2934B88800529C2A /* LoadNetworkDataProtocol.swift in Sources */,
 				2DBE0125291657CA00CE4E57 /* AppDelegate.swift in Sources */,
 				2D9371C9291D1CAF0000F3E0 /* CustomNavigationController.swift in Sources */,
 				2D6AEF41291A621800D7D449 /* GroupUserTableViewCell..swift in Sources */,
 				2DBE0127291657CA00CE4E57 /* SceneDelegate.swift in Sources */,
 				2D6AEF46291A626F00D7D449 /* LikeControl.swift in Sources */,
+				2DC6D83A2934B44300529C2A /* NetworkRequests.swift in Sources */,
 				2DBE01422916652500CE4E57 /* PhotosUserCollectionViewController.swift in Sources */,
 				2D97DFBA291B664600BC82AA /* News.swift in Sources */,
 				2D752464291A584D00289EAC /* User.swift in Sources */,
@@ -417,6 +428,7 @@
 				2DBE0140291664D500CE4E57 /* SearchGroupTableViewController.swift in Sources */,
 				2D97DFC4291B67B800BC82AA /* NewsViewController.swift in Sources */,
 				2D6AEF43291A623600D7D449 /* SearchGroupTableViewCell.swift in Sources */,
+				2DC6D83E2934B8F900529C2A /* Session.swift in Sources */,
 				2D9371C8291D1CAF0000F3E0 /* CustomPopAnimator.swift in Sources */,
 				2D41B374292F2FC800F70446 /* WebViewLoginViewController.swift in Sources */,
 				2D97DFBC291B670F00BC82AA /* NewsTableViewCell.swift in Sources */,
