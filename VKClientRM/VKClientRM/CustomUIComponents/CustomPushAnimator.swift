@@ -50,7 +50,7 @@ final class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning 
                 relativeDuration: Constants.withRelativeDuractionNumber
             ) {
                 let transition = CGAffineTransform(
-                    translationX: Constants.scaleFirstNUmber,
+                    translationX: CGFloat(Constants.scaleFirstNUmber),
                     y: Constants.zeroConstraintsNumber
                 )
                 let scale = CGAffineTransform(scaleX: Constants.scaleTransformNumber, y: Constants.scaleTransformNumber)

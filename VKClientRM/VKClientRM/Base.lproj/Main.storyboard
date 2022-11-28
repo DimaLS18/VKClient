@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zmd-GU-dAH">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
@@ -135,6 +135,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="66"/>
+        </scene>
+        <!--Web View Login View Controller-->
+        <scene sceneID="b2J-xp-wx6">
+            <objects>
+                <viewController id="zmd-GU-dAH" customClass="WebViewLoginViewController" customModule="VKClientRM" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0iE-wl-Wsr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aLU-rh-ltg">
+                                <rect key="frame" x="0.0" y="48" width="414" height="814"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="EZq-a4-ZNS"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="EZq-a4-ZNS" firstAttribute="bottom" secondItem="aLU-rh-ltg" secondAttribute="bottom" id="7My-h0-nf2"/>
+                            <constraint firstItem="aLU-rh-ltg" firstAttribute="leading" secondItem="EZq-a4-ZNS" secondAttribute="leading" id="7al-5g-Or3"/>
+                            <constraint firstItem="aLU-rh-ltg" firstAttribute="top" secondItem="EZq-a4-ZNS" secondAttribute="top" id="YWH-3y-mKW"/>
+                            <constraint firstItem="EZq-a4-ZNS" firstAttribute="trailing" secondItem="aLU-rh-ltg" secondAttribute="trailing" id="be0-vx-dsp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="vkWebView" destination="aLU-rh-ltg" id="GAZ-dM-K89"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9ES-ui-3i0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="138" y="820"/>
         </scene>
         <!--Friends User View Controller-->
         <scene sceneID="Y3c-0e-Dif">
@@ -557,7 +591,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="zIK-YY-dIf">
             <objects>
-                <tabBarController id="QuM-xg-hIc" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBarID" id="QuM-xg-hIc" customClass="VKTabBarController" customModule="VKClientRM" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="vvw-2u-ca2"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xWf-zX-6xh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>

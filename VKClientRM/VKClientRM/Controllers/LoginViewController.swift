@@ -58,7 +58,7 @@ final class LoginViewController: UIViewController {
     @IBAction private func loginButtonAction(_ sender: UIButton) {
         if checkLoginInfo() {
             threePointsAnination()
-        } else {
+        }else{
             showAlert(title: Constants.titleAlertText, message: Constants.messageAlertText)
         }
     }
