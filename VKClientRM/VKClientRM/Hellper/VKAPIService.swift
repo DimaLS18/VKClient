@@ -36,4 +36,16 @@ struct VKAPIService: LoadNetworkDataProtocol {
     private func fetchPublicGroups() {
         loadData(urlPath: NetworkRequests.globalGroups(query: Constants.groupSearchParam).urlPath)
     }
+
+    func downloadImageFrom(urlString: URL, completion: @escaping (UIImage) -> Void) {
+            let task = URLSession.shared.dataTask(with: urlString) { data, _, error in
+                if error != nil {
+                    print("ERROR \(String(describing: error))")
+                }
+                guard let data = data,
+                      let downloadedImage = UIImage(data: data) else { return }
+                completion(downloadedImage)
+            }
+            task.resume()
+        }
 }

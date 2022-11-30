@@ -13,6 +13,7 @@ final class WebViewLoginViewController: UIViewController {
         static let separatedBy = "&"
         static let separatedByTwo = "="
         static let blank  = "/blank.html"
+        static let segueIdentifier = "menuVC"
     }
 
     // MARK: - Private IBOutlets
@@ -78,5 +79,8 @@ extension WebViewLoginViewController: WKNavigationDelegate {
 
         vkAPIService.printAllData()
         decisionHandler(.cancel)
+
+        performSegue(withIdentifier: Constants.segueIdentifier, sender: nil)
+
     }
 }
