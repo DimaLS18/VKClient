@@ -89,7 +89,7 @@ final class AnimatedFotoViewController: UIViewController {
         currentUserPhotoLeadingConstraint.constant = 0
         currentUserPhotoImageView.layer.zPosition = 1
         vkNetworkService.setupImage(
-            urlPath: userPhotosName[currentUserPhotoIndex],
+            urlPath: userPhotoNames[currentUserPhotoIndex],
             imageView: currentUserPhotoImageView
         )
         nextUserPhotoTrailingConstraint.constant = -view.frame.width
@@ -105,7 +105,7 @@ final class AnimatedFotoViewController: UIViewController {
 
     private func doAnimationForSwipeRight() {
         prepareForAnimationForSwipeRight()
-        UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: []) {
+        
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5) {
                 self.currentUserPhotoTrailingConstraint.constant = -self.view.frame.width
                 self.currentUserPhotoLeadingConstraint.constant = self.view.frame.width

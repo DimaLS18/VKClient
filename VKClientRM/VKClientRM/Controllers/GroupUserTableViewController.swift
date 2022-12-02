@@ -24,7 +24,7 @@ final class GroupUserTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        fetchUserGroupsVK()
     }
 
 
@@ -91,7 +91,7 @@ final class GroupUserTableViewController: UITableViewController {
 
     // MARK: - Private Methods
 
-    private func setupView() {
+    private func fetchUserGroupsVK() {
         vkNetworkService.fetchUserGroupsVK { [weak self] items in
             guard let self = self else { return }
             self.vkGroups = items

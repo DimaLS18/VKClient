@@ -29,7 +29,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        fetchPhotos()
     }
 
     // MARK: - Public Methods
@@ -88,7 +88,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     // MARK: - Private Methods
 
-    private func setupView() {
+    private func fetchPhotos() {
         vkNetworkService.fetchPhotosVK(userID: "\(user.id)") { [weak self] photosURLText in
             guard let self = self else { return }
             self.user.userPhotoNames = photosURLText

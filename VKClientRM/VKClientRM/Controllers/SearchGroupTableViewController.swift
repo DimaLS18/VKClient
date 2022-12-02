@@ -83,8 +83,6 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
         searchBar.endEditing(true)
     }
 
-    // MARK: - Private Methods
-
     func searchGroup(searchBar: UISearchBar, searchText: String) {
         if searchText.isEmpty {
             searchBar.endEditing(true)
