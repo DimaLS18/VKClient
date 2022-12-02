@@ -20,11 +20,15 @@ final class SearchGroupTableViewCell: UITableViewCell {
 
     var group = Group(groupName: Constants.emptyText, groupPhotoName: Constants.emptyText)
 
+    // MARK: - Private Properties
+
+    private let vkNetworkService = VKNetworkService()
+
     // MARK: - Public Methods
 
     func configureCell(group: Group) {
         groupNameLabel.text = group.groupName
-        groupPhotoImageView.image = UIImage(named: group.groupPhotoName)
+        vkNetworkService.setupImage(urlPath: group.groupPhotoName, imageView: groupPhotoImageView)
         self.group = group
     }
 }

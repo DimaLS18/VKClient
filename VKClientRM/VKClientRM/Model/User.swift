@@ -1,12 +1,14 @@
 // User.swift
 // Copyright © RoadMap. All rights reserved.
 
-/// модель пользователя
+/// Пользователь
 struct User {
     /// Имя пользователя
     let userName: String
     /// Имя фото самого пользователя
-    let userPhotoName: String
+    let userPhotoURLText: String
     /// Имена фотографий пользователя
-    let userPhotosName: [String]
+    var userPhotoNames: [String]
+    /// Идентификатор пользователя на портале VK
+    let id: Int
 }

@@ -29,6 +29,7 @@ final class AnimatedFotoViewController: UIViewController {
 
     private var userPhotosName: [String] = []
     private var currentUserPhotoIndex = 0
+    private let vkNetworkService = VKNetworkService()
 
     // MARK: - Lifecycle
 
@@ -40,7 +41,7 @@ final class AnimatedFotoViewController: UIViewController {
     // MARK: - Public Methods
 
     func configureBigPhotosUserVC(currentUserPhotoIndex: Int, userPhotosName: [String]) {
-        self.userPhotosName = userPhotosName
+        userPhotoNames = userPhotosName
         self.currentUserPhotoIndex = currentUserPhotoIndex
     }
 
@@ -51,13 +52,13 @@ final class AnimatedFotoViewController: UIViewController {
         switch swipeGesture.direction {
         case .right:
             guard
-                currentUserPhotoIndex < userPhotosName.count,
+                currentUserPhotoIndex < userPhotoNames.count,
                 currentUserPhotoIndex > 0
             else { return }
             doAnimationForSwipeRight()
         case .left:
             guard
-                currentUserPhotoIndex < userPhotosName.count - 1,
+                currentUserPhotoIndex < userPhotoNames.count - 1,
                 currentUserPhotoIndex >= 0
             else { return }
             doAnimationForSwipeLeft()
@@ -66,102 +67,97 @@ final class AnimatedFotoViewController: UIViewController {
         }
     }
 
-    private func setupView() {
-        addSwipeToView()
-        setupImageViews()
-    }
-
     private func doAnimationForSwipeLeft() {
         prepareForAnimationForSwipeLeft()
-        UIView.animateKeyframes(
-            withDuration: Constants.withDurationNunber,
-            delay: TimeInterval(Constants.numberZero),
-            options: []
-        ) {
-            UIView.addKeyframe(
-                withRelativeStartTime: Double(Constants.numberZero),
-                relativeDuration: Constants.relativeDurationNumber
-            ) {
-                self.currentUserPhotoTrailingConstraint.constant = CGFloat(Constants.photoConstraintNumber)
-                self.currentUserPhotoLeadingConstraint.constant = CGFloat(Constants.photoConstraintNumber)
+        UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: []) {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5) {
+                self.currentUserPhotoTrailingConstraint.constant = 50
+                self.currentUserPhotoLeadingConstraint.constant = 50
                 self.view.layoutIfNeeded()
             }
-            UIView.addKeyframe(
-                withRelativeStartTime: Constants.relativeDurationNumber,
-                relativeDuration: Constants.relativeDurationNumber
-            ) {
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {
                 self.view.layoutIfNeeded()
-                self.nextUserPhotoTrailingConstraint.constant = CGFloat(Constants.numberZero)
-                self.nextUserPhotoLeadingConstraint.constant = CGFloat(Constants.numberZero)
+                self.nextUserPhotoTrailingConstraint.constant = 0
+                self.nextUserPhotoLeadingConstraint.constant = 0
                 self.view.layoutIfNeeded()
             }
         }
     }
 
     private func prepareForAnimationForSwipeLeft() {
-        currentUserPhotoTrailingConstraint.constant = CGFloat(Constants.numberZero)
-        currentUserPhotoLeadingConstraint.constant = CGFloat(Constants.numberZero)
-        currentUserPhotoImageView.layer.zPosition = CGFloat(Constants.firstNumber)
-        currentUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex])
+        currentUserPhotoTrailingConstraint.constant = 0
+        currentUserPhotoLeadingConstraint.constant = 0
+        currentUserPhotoImageView.layer.zPosition = 1
+        vkNetworkService.setupImage(
+            urlPath: userPhotosName[currentUserPhotoIndex],
+            imageView: currentUserPhotoImageView
+        )
         nextUserPhotoTrailingConstraint.constant = -view.frame.width
         nextUserPhotoLeadingConstraint.constant = view.frame.width
-        nextUserPhotoImageView.layer.zPosition = CGFloat(Constants.secondNumber)
-        nextUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex + Constants.firstNumber])
+        nextUserPhotoImageView.layer.zPosition = 2
+        vkNetworkService.setupImage(
+            urlPath: userPhotoNames[currentUserPhotoIndex + 1],
+            imageView: nextUserPhotoImageView
+        )
         view.layoutIfNeeded()
-        currentUserPhotoIndex += Constants.firstNumber
+        currentUserPhotoIndex += 1
     }
 
     private func doAnimationForSwipeRight() {
         prepareForAnimationForSwipeRight()
-        UIView.animateKeyframes(
-            withDuration: Constants.withDurationNunber,
-            delay: TimeInterval(Constants.numberZero),
-            options: []
-        ) {
-            UIView.addKeyframe(
-                withRelativeStartTime: Double(Constants.numberZero),
-                relativeDuration: Constants.relativeDurationNumber
-            ) {
+        UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: []) {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5) {
                 self.currentUserPhotoTrailingConstraint.constant = -self.view.frame.width
                 self.currentUserPhotoLeadingConstraint.constant = self.view.frame.width
                 self.view.layoutIfNeeded()
             }
-            UIView.addKeyframe(
-                withRelativeStartTime: Constants.relativeDurationNumber,
-                relativeDuration: Constants.relativeDurationNumber
-            ) {
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {
                 self.view.layoutIfNeeded()
-                self.nextUserPhotoTrailingConstraint.constant = CGFloat(Constants.numberZero)
-                self.nextUserPhotoLeadingConstraint.constant = CGFloat(Constants.numberZero)
+                self.nextUserPhotoTrailingConstraint.constant = 0
+                self.nextUserPhotoLeadingConstraint.constant = 0
                 self.view.layoutIfNeeded()
             }
         }
     }
 
     private func prepareForAnimationForSwipeRight() {
-        currentUserPhotoTrailingConstraint.constant = CGFloat(Constants.numberZero)
-        currentUserPhotoLeadingConstraint.constant = CGFloat(Constants.numberZero)
-        currentUserPhotoImageView.layer.zPosition = CGFloat(Constants.secondNumber)
-        currentUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex])
-        nextUserPhotoTrailingConstraint.constant = CGFloat(Constants.photoConstraintNumber)
-        nextUserPhotoLeadingConstraint.constant = CGFloat(Constants.photoConstraintNumber)
-        nextUserPhotoImageView.layer.zPosition = CGFloat(Constants.firstNumber)
-        nextUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex - Constants.firstNumber])
+        currentUserPhotoTrailingConstraint.constant = 0
+        currentUserPhotoLeadingConstraint.constant = 0
+        currentUserPhotoImageView.layer.zPosition = 2
+        vkNetworkService.setupImage(
+            urlPath: userPhotoNames[currentUserPhotoIndex],
+            imageView: currentUserPhotoImageView
+        )
+        nextUserPhotoTrailingConstraint.constant = 50
+        nextUserPhotoLeadingConstraint.constant = 50
+        nextUserPhotoImageView.layer.zPosition = 1
+        vkNetworkService.setupImage(
+            urlPath: userPhotoNames[currentUserPhotoIndex - 1],
+            imageView: nextUserPhotoImageView
+        )
         view.layoutIfNeeded()
-        currentUserPhotoIndex -= Constants.firstNumber
+        currentUserPhotoIndex -= 1
+    }
+
+    private func setupView() {
+        addSwipeToView()
+        setupImageViews()
     }
 
     private func setupImageViews() {
-        guard 0 ..< userPhotosName.count ~= currentUserPhotoIndex else { return }
-        currentUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex])
+        guard 0 ..< userPhotoNames.count ~= currentUserPhotoIndex else { return }
+        vkNetworkService.setupImage(
+            urlPath: userPhotoNames[currentUserPhotoIndex],
+            imageView: currentUserPhotoImageView
+        )
     }
 
     private func addSwipeToView() {
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeAction(gesture:)))
         swipeLeft.direction = .left
         view.addGestureRecognizer(swipeLeft)
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeAction(gesture:)))
-        swipeRight.direction = .right
-        view.addGestureRecognizer(swipeRight)
+        let swipeRigth = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeAction(gesture:)))
+        swipeRigth.direction = .right
+        view.addGestureRecognizer(swipeRigth)
     }
 }

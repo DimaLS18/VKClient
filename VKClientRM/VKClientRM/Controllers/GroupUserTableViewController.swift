@@ -11,31 +11,22 @@ final class GroupUserTableViewController: UITableViewController {
         static let segueID = "GoToSearchGroupTableVC"
         static let groupUserCellID = "GroupUserCell"
         static let addGroupSegueID = "AddGroup"
-        static let groupUserPhotoOneName = "FriendPhotoOne"
-        static let groupUserPhotoSecondName = "FriendPhotoSecond"
-        static let groupUserPhotoThirdName = "FriendPhotoThird"
-        static let groupUserPhotoSwift = "swift"
-        static let groupUserNameOneName = "SwiftDevelop"
-        static let groupUserNameSecondName = "Программирование"
-        static let groupUserNameThirdName = "Спартак"
-        static let groupUserNameFourName = "Футбол"
-        static let groupUserNameFiveName = "Спорт"
-        static let groupUserNameSixName = "Тай"
     }
 
     // MARK: - Private Properties
 
-    private var allGroups = [
-        Group(groupName: Constants.groupUserNameFourName, groupPhotoName: Constants.groupUserPhotoOneName),
-        Group(groupName: Constants.groupUserNameFiveName, groupPhotoName: Constants.groupUserPhotoSecondName),
-        Group(groupName: Constants.groupUserNameSixName, groupPhotoName: Constants.groupUserPhotoThirdName)
-    ]
+    private let vkNetworkService = VKNetworkService()
+    private var allGroups: [Group] = []
+    private var userGroups: [Group] = []
+    private var vkGroups: [VKGroups] = []
 
-    private var userGroups = [
-        Group(groupName: Constants.groupUserNameOneName, groupPhotoName: Constants.groupUserPhotoSwift),
-        Group(groupName: Constants.groupUserNameSecondName, groupPhotoName: Constants.groupUserPhotoSecondName),
-        Group(groupName: Constants.groupUserNameThirdName, groupPhotoName: Constants.groupUserPhotoThirdName)
-    ]
+    // MARK: - Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
+
 
     // MARK: - Public Methods
 
@@ -96,5 +87,18 @@ final class GroupUserTableViewController: UITableViewController {
         }
         userGroups.append(group)
         tableView.reloadData()
+    }
+
+    // MARK: - Private Methods
+
+    private func setupView() {
+        vkNetworkService.fetchUserGroupsVK { [weak self] items in
+            guard let self = self else { return }
+            self.vkGroups = items
+            for item in items {
+                self.userGroups.append(Group(groupName: item.name, groupPhotoName: item.photo200))
+            }
+            self.tableView.reloadData()
+        }
     }
 }

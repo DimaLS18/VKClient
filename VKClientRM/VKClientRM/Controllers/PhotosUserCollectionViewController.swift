@@ -9,9 +9,6 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     private enum Constants {
         static let photosUserCellID = "PhotosUserCell"
-        static let friendPhotoOneName = "FriendPhotoOne"
-        static let friendPhotoFour = "FriendPhotoFour"
-        static let newsFotoFive = "NewsFotoFive"
         static let GoTAnimatedFotoVCSegueID = "GoTAnimatedFotoVCSegueID"
         static let emptyText = ""
     }
@@ -20,15 +17,20 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     private var user = User(
         userName: Constants.emptyText,
-        userPhotoName: Constants.emptyText,
-        userPhotosName: [
-            Constants.friendPhotoOneName,
-            Constants.friendPhotoFour,
-            Constants.newsFotoFive
-        ]
+        userPhotoURLText: Constants.emptyText,
+        userPhotoNames: [Constants.emptyText],
+        id: 0
     )
 
-    private var currentIndexPressedCell = 0
+    private var pressedCellCurrentIndex = 0
+    private let vkNetworkService = VKNetworkService()
+
+    // MARK: - Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
 
     // MARK: - Public Methods
 
@@ -37,7 +39,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        user.userPhotosName.count
+        user.userPhotoNames.count
     }
 
     override func collectionView(
@@ -49,9 +51,9 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
                 withReuseIdentifier: Constants.photosUserCellID,
                 for: indexPath
             ) as? PhotosUserCollectionViewCell,
-            indexPath.row < user.userPhotosName.count
+            indexPath.row < user.userPhotoNames.count
         else { return UICollectionViewCell() }
-        cell.configureCell(userPhoto: user.userPhotosName[indexPath.row])
+        cell.configure(userPhoto: user.userPhotoNames[indexPath.row])
         return cell
     }
 
@@ -79,9 +81,19 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             let destination = segue.destination as? AnimatedFotoViewController
         else { return }
         destination.configureBigPhotosUserVC(
-            currentUserPhotoIndex: currentIndexPressedCell,
-            userPhotosName: user.userPhotosName
+            currentUserPhotoIndex: pressedCellCurrentIndex,
+            userPhotosName: user.userPhotoNames
         )
+    }
+
+    // MARK: - Private Methods
+
+    private func setupView() {
+        vkNetworkService.fetchPhotosVK(userID: "\(user.id)") { [weak self] photosURLText in
+            guard let self = self else { return }
+            self.user.userPhotoNames = photosURLText
+            self.collectionView.reloadData()
+        }
     }
 }
 
@@ -97,7 +109,7 @@ extension PhotosUserCollectionViewController: UICollectionViewDelegateFlowLayout
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        currentIndexPressedCell = indexPath.row
+        pressedCellCurrentIndex = indexPath.row
         performSegue(withIdentifier: Constants.GoTAnimatedFotoVCSegueID, sender: self)
     }
 }
