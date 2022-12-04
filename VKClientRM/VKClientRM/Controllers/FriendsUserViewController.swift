@@ -27,8 +27,8 @@ final class FriendsUserViewController: UIViewController {
     // MARK: - Private Properties
 
     private let vkNetworkService = VKNetworkService()
-    private var allFriends: [User] = []
-    private lazy var friends = allFriends
+    private var users: [User] = []
+    private lazy var friends = users
     private var friendsForSection: [Character: [User]] = [:]
     private var charactersName: [Character] = []
     private var personItems: [ItemPerson] = []
@@ -65,7 +65,6 @@ final class FriendsUserViewController: UIViewController {
     private func setupView() {
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
-        friendsSearchBar.delegate = self
         setupCharacters()
         makeFriendsForSection()
         friends.sort {
@@ -75,14 +74,14 @@ final class FriendsUserViewController: UIViewController {
         vkNetworkService.fetchFriendsVK { [weak self] items in
             guard let self = self else { return }
             for item in items {
-                self.allFriends.append(User(
+                self.users.append(User(
                     userName: "\(item.firstName) \(item.lastName)",
                     userPhotoURLText: item.photo,
                     userPhotoNames: Constants.photosName,
                     id: item.id
                 ))
             }
-            self.friends = self.allFriends
+            self.friends = self.users
             self.setupCharacters()
             self.makeFriendsForSection()
             self.friends.sort {
@@ -175,7 +174,7 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
 
 extension FriendsUserViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        friends = allFriends
+        friends = users
         if searchText.isEmpty {
             searchBar.endEditing(true)
         } else {

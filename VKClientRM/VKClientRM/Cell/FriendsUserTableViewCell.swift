@@ -18,9 +18,6 @@ final class FriendsUserTableViewCell: UITableViewCell {
     @IBOutlet private var friendPhotoImageView: UIImageView!
     @IBOutlet private var shadowView: ShadowView!
 
-    // MARK: - Public Properties
-
-    private let vkNetworkService = VKNetworkService()
 
     // MARK: - Lifecycle
 
@@ -41,7 +38,7 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(user: User) {
+    func configureCell(user: User,  vkNetworkService: VKNetworkService) {
         friendNameLabel.text = user.userName
         vkNetworkService.setupImage(urlPath: user.userPhotoURLText, imageView: friendPhotoImageView)
         self.user = user

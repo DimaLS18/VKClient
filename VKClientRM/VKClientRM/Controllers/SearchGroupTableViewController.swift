@@ -57,7 +57,7 @@ final class SearchGroupTableViewController: UITableViewController {
             ) as? SearchGroupTableViewCell,
             indexPath.row < groups.count
         else { return UITableViewCell() }
-        cell.configureCell(group: groups[indexPath.row])
+        cell.configureCell(group: groups[indexPath.row], vkNetworkService: VKNetworkService())
         return cell
     }
 
@@ -71,7 +71,7 @@ final class SearchGroupTableViewController: UITableViewController {
 // MARK: - UISearchBarDelegate
 
 extension SearchGroupTableViewController: UISearchBarDelegate {
-    // MARK: - Public Methods
+
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         groups = allGroups
