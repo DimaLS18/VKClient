@@ -4,8 +4,6 @@
 //
 //  Created by Dima Kovrigin on 30.11.2022.
 
-
-
 import UIKit
 
 /// Установка изображения в UIImageView по ссылке из сети

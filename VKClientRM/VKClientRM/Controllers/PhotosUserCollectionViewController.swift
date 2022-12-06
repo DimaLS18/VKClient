@@ -53,7 +53,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             ) as? PhotosUserCollectionViewCell,
             indexPath.row < user.userPhotoNames.count
         else { return UICollectionViewCell() }
-        cell.configure(userPhoto: user.userPhotoNames[indexPath.row], vkNetworkService: <#VKNetworkService#>)
+        cell.configure(userPhoto: user.userPhotoNames[indexPath.row], vkNetworkService: vkNetworkService)
         return cell
     }
 

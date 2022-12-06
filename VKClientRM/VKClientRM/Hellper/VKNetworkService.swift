@@ -5,7 +5,6 @@
 
 import Alamofire
 import Foundation
-import RealmSwift
 
 /// Менеджер сетевых запросов по API VK
 final class VKNetworkService {
@@ -68,20 +67,18 @@ final class VKNetworkService {
         return parameters
     }()
 
-    private var realmService = RealmService()
 
     // MARK: - Public Methods
 
     func fetchFriendsVK(completion: @escaping ([ItemPerson]) -> Void) {
         let path = Constants.methodText + Constants.friendsGetText
         let url = "\(Constants.baseUrl)\(path)"
-        Alamofire.request(url, method: .get, parameters: parametersFriendsVK).responseData { [weak self] response in
+        Alamofire.request(url, method: .get, parameters: parametersFriendsVK).responseData { response in
             guard
                 let self = self,
                 let data = response.value,
                 let items = try? JSONDecoder().decode(Person.self, from: data).response.items
             else { return }
-            self.realmService.saveFriendsData(items)
             completion(items)
         }
     }
@@ -91,7 +88,7 @@ final class VKNetworkService {
         let url = "\(Constants.baseUrl)\(path)"
         var parametersPhotos = generalParameters
         parametersPhotos[Constants.ownerIdText] = userID
-        Alamofire.request(url, method: .get, parameters: parametersPhotos).responseData { [weak self] response in
+        Alamofire.request(url, method: .get, parameters: parametersPhotos).responseData {  response in
             guard
                 let self = self,
                 let data = response.value,
@@ -101,7 +98,6 @@ final class VKNetworkService {
             for item in items {
                 photosURLText.append(item.url)
             }
-            self.realmService.savePhotosData(items)
             completion(photosURLText)
         }
     }
@@ -109,13 +105,12 @@ final class VKNetworkService {
     func fetchUserGroupsVK(completion: @escaping ([VKGroups]) -> Void) {
         let path = Constants.methodText + Constants.groupsGetText
         let url = "\(Constants.baseUrl)\(path)"
-        Alamofire.request(url, method: .get, parameters: parametersGroupVK).responseData { [weak self] response in
+        Alamofire.request(url, method: .get, parameters: parametersGroupVK).responseData {  response in
             guard
                 let self = self,
                 let data = response.value,
                 let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items
             else { return }
-            self.realmService.saveGroupVKData(items)
             completion(items)
         }
     }
@@ -151,13 +146,27 @@ final class VKNetworkService {
     }
 
     func loadData(urlPath: String?, completion: @escaping (Data?) -> ()) {
+        guard
+            let urlPath = urlPath,
+            let url = URL(string: urlPath)
+        else { return }
+        DispatchQueue.global().async {
+            let data = try? Data(contentsOf: url)
+            completion(data)
+        }
+    }
+
+    func setupImage(urlPath: String?, imageView: UIImageView) {
            guard
                let urlPath = urlPath,
                let url = URL(string: urlPath)
            else { return }
            DispatchQueue.global().async {
                let data = try? Data(contentsOf: url)
-               completion(data)
+               DispatchQueue.main.async {
+                   guard let data = data else { return }
+                   imageView.image = UIImage(data: data)
+               }
            }
        }
 }

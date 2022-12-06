@@ -51,13 +51,14 @@ final class SearchGroupTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
             let cell = tableView
+            let VKNetworkService = VKNetworkService()
             .dequeueReusableCell(
                 withIdentifier: Constants.groupUserCellID,
                 for: indexPath
             ) as? SearchGroupTableViewCell,
             indexPath.row < groups.count
         else { return UITableViewCell() }
-        cell.configureCell(group: groups[indexPath.row], vkNetworkService: VKNetworkService())
+        cell.configureCell(group: groups[indexPath.row], vkNetworkService: VKNetworkService)
         return cell
     }
 

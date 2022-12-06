@@ -16,7 +16,7 @@ struct RealmService {
             realm.add(groupVK)
             try realm.commitWrite()
         } catch {
-            print(error)
+            print(error.localizedDescription)
         }
     }
 
@@ -27,7 +27,7 @@ struct RealmService {
             realm.add(friends)
             try realm.commitWrite()
         } catch {
-            print(error)
+            print(error.localizedDescription)
         }
     }
 
@@ -39,6 +39,7 @@ struct RealmService {
             try realm.commitWrite()
         } catch {}
     }
+
     func loadData<T: Object>(objectType: T.Type) -> Results<T>? {
            do {
                let realm = try Realm()
