@@ -12,18 +12,18 @@ final class PhotosUserCollectionViewCell: UICollectionViewCell {
         static let transformScaleYText = "transform.scale.y"
         static let opacityText = "opacity"
         static let friendPhotoOneText = "FriendPhotoOne"
-        static let groupUserPhotoSecondName = "FriendPhotoSecond"
-        static let groupUserPhotoThirdName = "FriendPhotoThird"
+
     }
 
     // MARK: - Private Outlets
 
     @IBOutlet private var friendPhotoImageView: UIImageView!
 
+
     // MARK: - Public Methods
 
-    func configureCell(userPhoto: String) {
-        friendPhotoImageView.image = getImage(by: userPhoto)
+    func configure(userPhoto: String, vkNetworkService: VKNetworkService) {
+        vkNetworkService.setupImage(urlPath: userPhoto, imageView: friendPhotoImageView)
     }
 
     func animateShowFriendPhotoImageView() {
@@ -51,10 +51,6 @@ final class PhotosUserCollectionViewCell: UICollectionViewCell {
     }
 
     // MARK: - Private Methods
-
-    private func getImage(by name: String) -> UIImage? {
-        UIImage(named: name)
-    }
 
     private func setupAnimation(animation: CABasicAnimation, fromValue: Double, toValue: Double, duration: Double) {
         animation.fromValue = fromValue

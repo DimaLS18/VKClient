@@ -18,13 +18,6 @@ final class FriendsUserTableViewCell: UITableViewCell {
     @IBOutlet private var friendPhotoImageView: UIImageView!
     @IBOutlet private var shadowView: ShadowView!
 
-    // MARK: - Public Properties
-
-    var user = User(
-        userName: Constants.emptyText,
-        userPhotoName: Constants.emptyText,
-        userPhotosName: [Constants.friendPhotoOneText]
-    )
 
     // MARK: - Lifecycle
 
@@ -33,11 +26,21 @@ final class FriendsUserTableViewCell: UITableViewCell {
         setupFriendPhoto()
     }
 
+    // MARK: - Public Properties
+
+    var user = User(
+        userName: Constants.emptyText,
+        userPhotoURLText: Constants.emptyText,
+        userPhotoNames: [Constants.friendPhotoOneText],
+        id: 0
+    )
+
+
     // MARK: - Public Methods
 
-    func configureCell(user: User) {
+    func configureCell(user: User,  vkNetworkService: VKNetworkService) {
         friendNameLabel.text = user.userName
-        friendPhotoImageView.image = UIImage(named: user.userPhotoName)
+        vkNetworkService.setupImage(urlPath: user.userPhotoURLText, imageView: friendPhotoImageView)
         self.user = user
     }
 

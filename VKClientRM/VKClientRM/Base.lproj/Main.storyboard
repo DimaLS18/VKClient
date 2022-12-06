@@ -134,7 +134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="66"/>
+            <point key="canvasLocation" x="-886" y="267"/>
         </scene>
         <!--Web View Login View Controller-->
         <scene sceneID="b2J-xp-wx6">
@@ -164,6 +164,7 @@
                     </view>
                     <connections>
                         <outlet property="vkWebView" destination="aLU-rh-ltg" id="GAZ-dM-K89"/>
+                        <segue destination="QuM-xg-hIc" kind="presentation" identifier="menuVC" modalPresentationStyle="fullScreen" id="bvQ-Qm-lxc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ES-ui-3i0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -569,7 +570,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HDf-KM-NzX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2544.9275362318845" y="1082.8125"/>
+            <point key="canvasLocation" x="2230" y="1125"/>
         </scene>
         <!--Friends-->
         <scene sceneID="NyF-P1-EYX">
@@ -626,9 +627,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tgq-dc-moc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1745" y="1084"/>
+            <point key="canvasLocation" x="919" y="1125"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="bvQ-Qm-lxc"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="FriendPhotoOne" width="220" height="293"/>
         <image name="newspaper.fill" catalog="system" width="128" height="112"/>

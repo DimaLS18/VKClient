@@ -13,6 +13,13 @@ final class WebViewLoginViewController: UIViewController {
         static let separatedBy = "&"
         static let separatedByTwo = "="
         static let blank  = "/blank.html"
+        static let segueIdentifier = "menuVC"
+        static let friendsGetText = "friends.get"
+        static let photosGetAllText = "photos.getAll"
+        static let ownerIdText = "owner_id"
+        static let groupsGetText = "groups.get"
+        static let groupsSearchText = "groups.search"
+        static let qText = "q"
     }
 
     // MARK: - Private IBOutlets
@@ -23,28 +30,29 @@ final class WebViewLoginViewController: UIViewController {
         }
     }
 
-    // MARK: - Private Properties
-    private var session = Session.shared
-    private var vkAPIService = VKAPIService()
+    // MARK: - Private properties
+
+    private let vkNetworkService = VKNetworkService()
 
     // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        initMethods()
+        loadWebView()
     }
 
-    // MARK: - Private methods
-    private func showAuthorizationWebView() {
-        guard let authorizationURL = URL(string: NetworkRequests.authorization.urlPath) else { return }
-        let request = URLRequest(url: authorizationURL)
+    // MARK: - Private Methods
+
+    private func loadWebView() {
+        let urlComponents = vkNetworkService.createUrlComponents()
+        guard let safeURL = urlComponents.url else { return }
+        let request = URLRequest(url: safeURL)
         vkWebView.load(request)
     }
-
-    private func initMethods() {
-        showAuthorizationWebView()
-    }
 }
+
 // MARK: - WKNavigationDelegate
+
 extension WebViewLoginViewController: WKNavigationDelegate {
     func webView(
         _ webView: WKWebView,
@@ -52,31 +60,27 @@ extension WebViewLoginViewController: WKNavigationDelegate {
         WKNavigationResponse,
         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
     ) {
-        guard let url = navigationResponse.response.url, url.path == Constants.blank, let fragment = url.fragment else {
+        guard let url = navigationResponse.response.url, url.path == Constants.blank,
+              let fragment = url.fragment
+        else {
             decisionHandler(.allow)
             return
         }
         let params = fragment
             .components(separatedBy: Constants.separatedBy)
-            .map { $0.components(separatedBy: Constants.separatedByTwo) }
-            .reduce([String: String]()) { result, param in
+            .map { $0.components(separatedBy: Constants.separatedByTwo) }.reduce([String: String]()) { result, param in
                 var dict = result
                 let key = param[0]
                 let value = param[1]
                 dict[key] = value
                 return dict
             }
-
-        guard let token = params[Constants.accessToken],
-              let userID = params[Constants.userID]
-        else {
-            decisionHandler(.allow)
-            return
-        }
-        Session.shared.token = token
-        Session.shared.userID = userID
-
-        vkAPIService.printAllData()
+        let token = params[Constants.accessToken]
+        let userId = params[Constants.userID]
+        guard let safeToken = token, let userIdString = userId, let safeUserId = Int(userIdString) else { return }
+        Session.shared.token = safeToken
+        Session.shared.userId = safeUserId
         decisionHandler(.cancel)
+        performSegue(withIdentifier: Constants.segueIdentifier, sender: self)
     }
 }

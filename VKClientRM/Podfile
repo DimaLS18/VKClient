@@ -9,4 +9,6 @@ target 'VKClientRM' do
 
    pod 'Alamofire'
 
+   pod 'RealmSwift'
+
 end
