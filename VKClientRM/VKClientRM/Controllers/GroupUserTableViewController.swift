@@ -43,7 +43,7 @@ final class GroupUserTableViewController: UITableViewController {
             ) as? GroupUserTableViewCell,
             indexPath.row < userGroups.count
         else { return UITableViewCell() }
-        cell.configureCell(group: userGroups[indexPath.row])
+        cell.configureCell(group: userGroups[indexPath.row], vkNetworkService: vkNetworkService)
         return cell
     }
 
