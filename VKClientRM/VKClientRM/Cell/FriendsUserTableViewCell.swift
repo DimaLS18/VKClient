@@ -27,14 +27,14 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     // MARK: - Public Properties
 
-    var user = ItemPerson()
+    var itemPerson = ItemPerson()
 
     // MARK: - Public Methods
 
     func configure(user: ItemPerson, networkService: VKNetworkService) {
         friendNameLabel.text = user.fullName
         friendPhotoImageView.setupImage(urlPath: user.photo, networkService: networkService)
-        self.user = user
+        self.itemPerson = user
     }
 
     // MARK: - Private Methods

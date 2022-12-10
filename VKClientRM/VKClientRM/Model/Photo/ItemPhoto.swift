@@ -15,7 +15,6 @@ final class ItemPhoto: Object, Decodable {
     let parentCategory = LinkingObjects(fromType: ItemPerson.self, property: "photos")
 
     // MARK: - enum
-
     enum CodingKeys: String, CodingKey {
         case sizes
     }
@@ -26,7 +25,6 @@ final class ItemPhoto: Object, Decodable {
     }
 
     // MARK: - Initializers
-
     convenience init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)

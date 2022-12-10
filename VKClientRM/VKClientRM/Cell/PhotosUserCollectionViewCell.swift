@@ -22,8 +22,8 @@ final class PhotosUserCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public Methods
 
-    func configure(userPhoto: String, vkNetworkService: VKNetworkService) {
-        vkNetworkService.setupImage(urlPath: userPhoto, imageView: friendPhotoImageView)
+    func configure(userPhoto: String, networkService: VKNetworkService) {
+        friendPhotoImageView.setupImage(urlPath: userPhoto, networkService: networkService)
     }
 
     func animateShowFriendPhotoImageView() {

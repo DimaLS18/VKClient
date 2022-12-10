@@ -1,10 +1,9 @@
-// PhotosUserCollectionViewController.swift
+//VKNetworkService.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Alamofire
 import Foundation
 import RealmSwift
-
 
 /// Менеджер сетевых запросов по API VK
 final class VKNetworkService {

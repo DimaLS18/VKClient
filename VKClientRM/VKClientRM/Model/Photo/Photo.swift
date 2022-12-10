@@ -6,5 +6,6 @@ import RealmSwift
 
 /// Фотография
 final class Photo: Decodable {
+    /// Ответ с сервера о фотографии
     let response: ResponsePhoto
 }

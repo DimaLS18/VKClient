@@ -2,6 +2,7 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
+import RealmSwift
 
 // MARK: - typealias
 
@@ -60,7 +61,7 @@ final class FriendsUserViewController: UIViewController {
             let destination = segue.destination as? PhotosUserCollectionViewController,
             let cell = sender as? FriendsUserTableViewCell
         else { return }
-        destination.configurePhotosUserCollectionVC(currentUser: cell.user)
+        destination.configurePhotosUserCollectionVC(currentUser: cell.itemPerson)
     }
 
     // MARK: - Private Methods
@@ -68,7 +69,7 @@ final class FriendsUserViewController: UIViewController {
     private func setupView() {
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
-        friendsSearchBar.delegate = self
+       
         setupCharacters()
         makeFriendsForSection()
         itemPersons.sort { $0.fullName < $1.fullName }

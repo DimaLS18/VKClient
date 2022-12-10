@@ -40,7 +40,7 @@ final class AnimatedFotoViewController: UIViewController {
 
     // MARK: - Public Methods
 
-    func configureBigPhotosUserVC(currentUserPhotoIndex: Int, userPhotosName: [String]) {
+    func configureAnimatedPhotosUserVC(currentUserPhotoIndex: Int, userPhotosName: [String]) {
         userPhotosNames = userPhotosName
         self.currentUserPhotoIndex = currentUserPhotoIndex
     }

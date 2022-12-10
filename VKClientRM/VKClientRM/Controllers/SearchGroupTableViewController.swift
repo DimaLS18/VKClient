@@ -2,7 +2,6 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
-import SwiftUI
 
 /// Экран с поиска групп
 final class SearchGroupTableViewController: UITableViewController {

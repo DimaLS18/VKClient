@@ -52,7 +52,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             ) as? PhotosUserCollectionViewCell,
             indexPath.row < currentPerson.photos.count
         else { return UICollectionViewCell() }
-        cell.configure(userPhoto: currentPerson.photos[indexPath.row].url, vkNetworkService: vkNetworkService)
+        cell.configure(userPhoto: currentPerson.photos[indexPath.row].url, networkService: vkNetworkService)
         return cell
     }
 
@@ -79,10 +79,9 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             segue.identifier == Constants.GoTAnimatedFotoVCSegueID,
             let destination = segue.destination as? AnimatedFotoViewController
         else { return }
-        destination.configureBigPhotosUserVC(
+        destination.configureAnimatedPhotosUserVC(
             currentUserPhotoIndex: pressedCellCurrentIndex,
-            userPhotosName: currentPerson.photos
-        )
+                userPhotosName: currentPerson.photos        )
     }
 
     // MARK: - Private Methods

@@ -26,9 +26,7 @@ final class HeaderNewsTableViewCell: UITableViewCell {
     func configure(news: Newsfeed, vkNetworkService: VKNetworkService) {
         nameAuthorLabel.text = "\(news.sourceID)"
         let date = Date(timeIntervalSinceReferenceDate: Double(news.date))
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = Constants.dateFormatText
-        dateNewsAuthorLabel.text = dateFormatter.string(from: date)
+        let dateFormatter = DateFormatter.bigDateFormatter
         fetchAuthorVK(news: news, vkNetworkService: vkNetworkService)
     }
 
@@ -39,8 +37,8 @@ final class HeaderNewsTableViewCell: UITableViewCell {
             case let .success(response):
                 self.imageAuthorImageView.setupImage(urlPath: response.photo100, networkService: vkNetworkService)
                 self.nameAuthorLabel.text = response.fullName
-            case .failure:
-                return
+            case let .failure(error):
+            print(error.localizedDescription)
             }
         }
     }

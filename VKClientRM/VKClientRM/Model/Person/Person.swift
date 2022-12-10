@@ -5,5 +5,6 @@ import Foundation
 
 /// Пользователь ВК
 final class Person: Decodable {
+    /// Ответ с сервера о пользователе
     let response: ResponsePerson
 }
