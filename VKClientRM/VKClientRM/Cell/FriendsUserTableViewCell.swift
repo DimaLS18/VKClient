@@ -9,7 +9,6 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     private enum Constants {
         static let emptyText = ""
-        static let friendPhotoOneText = "FriendPhotoOne"
     }
 
     // MARK: - Private Outlets
@@ -28,26 +27,21 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     // MARK: - Public Properties
 
-    var user = User(
-        userName: Constants.emptyText,
-        userPhotoURLText: Constants.emptyText,
-        userPhotoNames: [Constants.friendPhotoOneText],
-        id: 0
-    )
-
+    var itemPerson = ItemPerson()
 
     // MARK: - Public Methods
 
-    func configureCell(user: User,  vkNetworkService: VKNetworkService) {
-        friendNameLabel.text = user.userName
-        vkNetworkService.setupImage(urlPath: user.userPhotoURLText, imageView: friendPhotoImageView)
-        self.user = user
+    func configure(user: ItemPerson, networkService: VKNetworkService) {
+        friendNameLabel.text = user.fullName
+        friendPhotoImageView.setupImage(urlPath: user.photo, networkService: networkService)
+        self.itemPerson = user
     }
 
     // MARK: - Private Methods
 
     private func setupFriendPhoto() {
+        selectionStyle = .none
         friendPhotoImageView.layer.cornerRadius = friendPhotoImageView.frame.width / 2
-        shadowView.shadowColor = .red
+        shadowView.shadowColor = .blue
     }
 }

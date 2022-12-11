@@ -2,6 +2,8 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
+import RealmSwift
+import Alamofire
 
 /// Экран с фотографиями пользователя
 final class PhotosUserCollectionViewController: UICollectionViewController {
@@ -15,31 +17,28 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     // MARK: - Private Properties
 
-    private var user = User(
-        userName: Constants.emptyText,
-        userPhotoURLText: Constants.emptyText,
-        userPhotoNames: [Constants.emptyText],
-        id: 0
-    )
-
-    private var pressedCellCurrentIndex = 0
     private let vkNetworkService = VKNetworkService()
+    private let realmService = RealmService()
+
+    private var currentPerson = ItemPerson()
+    private var pressedCellCurrentIndex = 0
+    private var notificationToken: NotificationToken?
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchPhotos()
+        setupView()
     }
 
     // MARK: - Public Methods
 
-    func configurePhotosUserCollectionVC(currentUser: User) {
-        user = currentUser
+    func configurePhotosUserCollectionVC(currentUser: ItemPerson) {
+        currentPerson = currentUser
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        user.userPhotoNames.count
+        currentPerson.photos.count
     }
 
     override func collectionView(
@@ -51,9 +50,9 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
                 withReuseIdentifier: Constants.photosUserCellID,
                 for: indexPath
             ) as? PhotosUserCollectionViewCell,
-            indexPath.row < user.userPhotoNames.count
+            indexPath.row < currentPerson.photos.count
         else { return UICollectionViewCell() }
-        cell.configure(userPhoto: user.userPhotoNames[indexPath.row], vkNetworkService: vkNetworkService)
+        cell.configure(userPhoto: currentPerson.photos[indexPath.row].url, networkService: vkNetworkService)
         return cell
     }
 
@@ -80,19 +79,66 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             segue.identifier == Constants.GoTAnimatedFotoVCSegueID,
             let destination = segue.destination as? AnimatedFotoViewController
         else { return }
-        destination.configureBigPhotosUserVC(
+        destination.configureAnimatedPhotosUserVC(
             currentUserPhotoIndex: pressedCellCurrentIndex,
-            userPhotosName: user.userPhotoNames
-        )
+                userPhotosName: currentPerson.photos        )
     }
 
     // MARK: - Private Methods
 
-    private func fetchPhotos() {
-        vkNetworkService.fetchPhotosVK(userID: "\(user.id)") { [weak self] photosURLText in
+    private func setupView() {
+        setupNotificationToken()
+        loadData()
+    }
+
+    private func loadData() {
+        guard let resultsItemPersons = realmService.loadData(objectType: ItemPerson.self) else { return }
+        let safeItemPersons = Array(resultsItemPersons)
+        for person in safeItemPersons where person.id == currentPerson.id {
+            currentPerson = person
+        }
+        collectionView.reloadData()
+        fetchPhotosVK()
+    }
+
+    private func fetchPhotosVK() {
+        vkNetworkService.fetchPhotosVK(person: createPersonForSave()) { [weak self] result in
             guard let self = self else { return }
-            self.user.userPhotoNames = photosURLText
-            self.collectionView.reloadData()
+            switch result {
+            case let .success(response):
+                self.realmService.savePhotosData(response)
+                guard let resultsItemPersons = self.realmService.loadData(objectType: ItemPerson.self) else { return }
+                let safeItemPersons = Array(resultsItemPersons)
+                for person in safeItemPersons where person.id == self.currentPerson.id {
+                    self.currentPerson = person
+                }
+                self.collectionView.reloadData()
+            case let .failure(error):
+                self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
+            }
+        }
+    }
+
+    private func createPersonForSave() -> ItemPerson {
+        let person = ItemPerson()
+        person.id = currentPerson.id
+        person.photo = currentPerson.photo
+        person.photos = currentPerson.photos
+        person.firstName = currentPerson.firstName
+        person.lastName = currentPerson.lastName
+        return person
+    }
+
+    private func setupNotificationToken() {
+        notificationToken = currentPerson.observe { [weak self] change in
+            guard let self = self else { return }
+            switch change {
+            case .change, .deleted:
+                self.loadData()
+                self.collectionView.reloadData()
+            case .error:
+                break
+            }
         }
     }
 }
