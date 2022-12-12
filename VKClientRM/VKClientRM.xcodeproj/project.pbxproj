@@ -42,6 +42,10 @@
 		2D6AEF43291A623600D7D449 /* SearchGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6AEF42291A623600D7D449 /* SearchGroupTableViewCell.swift */; };
 		2D6AEF46291A626F00D7D449 /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6AEF45291A626F00D7D449 /* LikeControl.swift */; };
 		2D6C00C529443BF100D5140C /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C00C429443BF100D5140C /* DateFormatter+Extension.swift */; };
+		2D6C00C82945894700D5140C /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C00C72945894700D5140C /* AsyncOperation.swift */; };
+		2D6C00CA2945898100D5140C /* GetDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C00C92945898100D5140C /* GetDataOperation.swift */; };
+		2D6C00CC294589B100D5140C /* ParseDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C00CB294589B100D5140C /* ParseDataOperation.swift */; };
+		2D6C00CE294589D800D5140C /* SaveDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C00CD294589D800D5140C /* SaveDataOperation.swift */; };
 		2D752461291A4E9900289EAC /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D752460291A4E9900289EAC /* ShadowView.swift */; };
 		2D752468291A588F00289EAC /* FriendsUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D752467291A588F00289EAC /* FriendsUserViewController.swift */; };
 		2D75246B291A58C700289EAC /* FriendsUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D75246A291A58C700289EAC /* FriendsUserTableViewCell.swift */; };
@@ -111,6 +115,10 @@
 		2D6AEF42291A623600D7D449 /* SearchGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroupTableViewCell.swift; sourceTree = "<group>"; };
 		2D6AEF45291A626F00D7D449 /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 		2D6C00C429443BF100D5140C /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
+		2D6C00C72945894700D5140C /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		2D6C00C92945898100D5140C /* GetDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataOperation.swift; sourceTree = "<group>"; };
+		2D6C00CB294589B100D5140C /* ParseDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseDataOperation.swift; sourceTree = "<group>"; };
+		2D6C00CD294589D800D5140C /* SaveDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDataOperation.swift; sourceTree = "<group>"; };
 		2D752460291A4E9900289EAC /* ShadowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		2D752467291A588F00289EAC /* FriendsUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsUserViewController.swift; sourceTree = "<group>"; };
 		2D75246A291A58C700289EAC /* FriendsUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsUserTableViewCell.swift; sourceTree = "<group>"; };
@@ -247,6 +255,17 @@
 			path = VIew;
 			sourceTree = "<group>";
 		};
+		2D6C00C62945892000D5140C /* Operation */ = {
+			isa = PBXGroup;
+			children = (
+				2D6C00C72945894700D5140C /* AsyncOperation.swift */,
+				2D6C00C92945898100D5140C /* GetDataOperation.swift */,
+				2D6C00CB294589B100D5140C /* ParseDataOperation.swift */,
+				2D6C00CD294589D800D5140C /* SaveDataOperation.swift */,
+			);
+			path = Operation;
+			sourceTree = "<group>";
+		};
 		2D752462291A584000289EAC /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +327,7 @@
 		2DBE0123291657CA00CE4E57 /* VKClientRM */ = {
 			isa = PBXGroup;
 			children = (
+				2D6C00C62945892000D5140C /* Operation */,
 				2D41B370292E0A6300F70446 /* Hellper */,
 				2D9371C1291D1CAF0000F3E0 /* CustomUIComponents */,
 				2D6AEF44291A624000D7D449 /* VIew */,
@@ -535,6 +555,7 @@
 				2D2E4BFE294214150011D888 /* HeaderNewsTableViewCell.swift in Sources */,
 				2D8E671D29307FC90081D7DA /* VKTabBarController.swift in Sources */,
 				2D2E4BEF294210340011D888 /* VKNews.swift in Sources */,
+				2D6C00C82945894700D5140C /* AsyncOperation.swift in Sources */,
 				2D2E4BEC294210340011D888 /* Photos.swift in Sources */,
 				2D752461291A4E9900289EAC /* ShadowView.swift in Sources */,
 				2D6C00C529443BF100D5140C /* DateFormatter+Extension.swift in Sources */,
@@ -544,6 +565,7 @@
 				2D75246B291A58C700289EAC /* FriendsUserTableViewCell.swift in Sources */,
 				2DBE013C2916645D00CE4E57 /* GroupUserTableViewController.swift in Sources */,
 				2D752468291A588F00289EAC /* FriendsUserViewController.swift in Sources */,
+				2D6C00CE294589D800D5140C /* SaveDataOperation.swift in Sources */,
 				2D9371C0291D1BC90000F3E0 /* AnimatedFotoViewController.swift in Sources */,
 				2D97DFC0291B673F00BC82AA /* NewsImageCollectionViewCell.swift in Sources */,
 				2D41B376292F30C300F70446 /* RealmService.swift in Sources */,
@@ -556,6 +578,7 @@
 				2D2E4BE7294210340011D888 /* VKGroups.swift in Sources */,
 				2DBE0125291657CA00CE4E57 /* AppDelegate.swift in Sources */,
 				2D9371C9291D1CAF0000F3E0 /* CustomNavigationController.swift in Sources */,
+				2D6C00CA2945898100D5140C /* GetDataOperation.swift in Sources */,
 				2D2E4BED294210340011D888 /* Size.swift in Sources */,
 				2D2E4BF2294210340011D888 /* PhotosItem.swift in Sources */,
 				2D2E4BF1294210340011D888 /* ResponseVKNews.swift in Sources */,
@@ -584,6 +607,7 @@
 				2D2E4BE6294210340011D888 /* ResponseVKGroup.swift in Sources */,
 				2D493729293784A4008982C4 /* UIImageView+Extension.swift in Sources */,
 				2D97DFBC291B670F00BC82AA /* NewsTableViewCell.swift in Sources */,
+				2D6C00CC294589B100D5140C /* ParseDataOperation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
