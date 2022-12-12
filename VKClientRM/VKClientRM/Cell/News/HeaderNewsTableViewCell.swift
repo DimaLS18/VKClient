@@ -26,19 +26,22 @@ final class HeaderNewsTableViewCell: UITableViewCell {
     func configure(news: Newsfeed, vkNetworkService: VKNetworkService) {
         nameAuthorLabel.text = "\(news.sourceID)"
         let date = Date(timeIntervalSinceReferenceDate: Double(news.date))
-        let dateFormatter = DateFormatter.bigDateFormatter
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = Constants.dateFormatText
+        dateNewsAuthorLabel.text = dateFormatter.string(from: date)
         fetchAuthorVK(news: news, vkNetworkService: vkNetworkService)
     }
+
 
     private func fetchAuthorVK(news: Newsfeed, vkNetworkService: VKNetworkService) {
         vkNetworkService.fetchAuthorVK(authorID: "\(news.sourceID)") { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case let .success(response):
+            case let .fulfilled(response):
                 self.imageAuthorImageView.setupImage(urlPath: response.photo100, networkService: vkNetworkService)
                 self.nameAuthorLabel.text = response.fullName
-            case let .failure(error):
-            print(error.localizedDescription)
+            case .rejected:
+                return
             }
         }
     }

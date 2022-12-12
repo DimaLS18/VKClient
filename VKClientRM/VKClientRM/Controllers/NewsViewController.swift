@@ -11,7 +11,7 @@ import UIKit
 /// Экран с новостной лентой
 final class NewsViewController: UIViewController {
     // MARK: - Constants
-
+    
     private enum Constants {
         static let newsTableViewCellID = "NewsTableViewCell"
         static let firstUserName = "Егор"
@@ -38,13 +38,13 @@ final class NewsViewController: UIViewController {
         static let thirdUserNewsImagesName = ["FriendPhotoFour"]
         static let thirdUserNewsLikeCount = 120
     }
-
+    
     // MARK: - Private Outlets
-
+    
     @IBOutlet private var newsTableView: UITableView!
-
+    
     // MARK: - Private Properties
-
+    
     private var allNews = [
         News(
             userName: Constants.firstUserName,
@@ -71,16 +71,16 @@ final class NewsViewController: UIViewController {
             newsLikeCount: Constants.thirdUserNewsLikeCount
         )
     ]
-
+    
     // MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     }
-
+    
     // MARK: - Private Methods
-
+    
     private func setupView() {
         newsTableView.delegate = self
         newsTableView.dataSource = self
@@ -90,16 +90,33 @@ final class NewsViewController: UIViewController {
             forCellReuseIdentifier: Constants.newsTableViewCellID
         )
     }
-
-    private func hightCellForImageCollection(numberRow: Int) -> CGFloat {
-        guard numberRow < allNews.count else { return 0 }
-        switch allNews[numberRow].newsImagesName.count {
-        case 1:
-            return view.bounds.width
-        case let count where count > 1:
-            return (view.bounds.width / 2) * CGFloat(lroundf(Float(allNews[numberRow].newsImagesName.count) / 2))
-        default:
-            return 0
+    
+    
+    private func fetchUserNewsVK() {
+        vkNetworkService.fetchUserNewsVK { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .fulfilled(response):
+                self.userNews = []
+                for item in response where (item.type == .post) || (item.type == .photo) {
+                    self.userNews.append(item)
+                }
+                self.newsTableView.reloadData()
+            case let .rejected(error):
+                self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
+            }
+        }
+        
+        private func hightCellForImageCollection(numberRow: Int) -> CGFloat {
+            guard numberRow < allNews.count else { return 0 }
+            switch allNews[numberRow].newsImagesName.count {
+            case 1:
+                return view.bounds.width
+            case let count where count > 1:
+                return (view.bounds.width / 2) * CGFloat(lroundf(Float(allNews[numberRow].newsImagesName.count) / 2))
+            default:
+                return 0
+            }
         }
     }
 }
