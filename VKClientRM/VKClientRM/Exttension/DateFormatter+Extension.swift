@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 /// Форматирование даты
 extension DateFormatter {
     static let bigDateFormatter: DateFormatter = {

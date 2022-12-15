@@ -11,7 +11,7 @@ typealias CharacterHandler = (Character) -> ()
 /// Экран с друзьями пользователя
 final class FriendsUserViewController: UIViewController {
     // MARK: - Constants
-
+    
     private enum Constants {
         static let friendsUserCellID = "FriendsUserCell"
         static let segueID = "GoToPhotosUserCollectionVC"
@@ -19,24 +19,25 @@ final class FriendsUserViewController: UIViewController {
         static let darkBlueColorName = "DarkBlueColor"
         static let photosName: [String] = []
     }
-
+    
     // MARK: - IBOutlet
-
+    
     @IBOutlet private var characterSetControl: CharacterSetControl!
     @IBOutlet private var friendsTableView: UITableView!
-
+    
     // MARK: - Private Properties
-
+    
     private let vkNetworkService = VKNetworkService()
     private let realmService = RealmService()
-
+    
     private var friendsForSectionMap: [Character: [ItemPerson]] = [:]
     private var charactersName: [Character] = []
     private var itemPersons: [ItemPerson] = []
     private var allFriends: [ItemPerson] = []
     private var notificationToken: NotificationToken?
     private var friendsResults: Results<ItemPerson>?
-
+    private var photoService: PhotoService?
+    
     private lazy var scrollFromCharacterHandler: CharacterHandler? = { [weak self] character in
         guard
             let self = self,
@@ -45,16 +46,16 @@ final class FriendsUserViewController: UIViewController {
         let indexPath = IndexPath(row: 0, section: section)
         self.friendsTableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
-
+    
     // MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     }
-
+    
     // MARK: - Public Methods
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard
             segue.identifier == Constants.segueID,
@@ -63,13 +64,14 @@ final class FriendsUserViewController: UIViewController {
         else { return }
         destination.configurePhotosUserCollectionVC(currentUser: cell.itemPerson)
     }
-
+    
     // MARK: - Private Methods
-
+    
     private func setupView() {
+        photoService = PhotoService(container: friendsTableView)
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
-
+        
         setupCharacters()
         makeFriendsForSection()
         itemPersons.sort { $0.fullName < $1.fullName }
@@ -77,7 +79,7 @@ final class FriendsUserViewController: UIViewController {
         setupNotificationToken()
         loadData()
     }
-
+    
     private func loadData() {
         guard let resultsItemPerson = realmService.loadData(objectType: ItemPerson.self) else { return }
         let persons = Array(resultsItemPerson)
@@ -85,7 +87,7 @@ final class FriendsUserViewController: UIViewController {
         setupUI(persons: itemPersons)
         getFriendsVK()
     }
-
+    
     private func setupCharacters() {
         charactersName = []
         for friend in itemPersons {
@@ -99,7 +101,7 @@ final class FriendsUserViewController: UIViewController {
         charactersName.sort()
         characterSetControl.characterSet = charactersName
     }
-
+    
     private func makeFriendsForSection() {
         for character in charactersName {
             var friendsForCharacter: [ItemPerson] = []
@@ -114,21 +116,21 @@ final class FriendsUserViewController: UIViewController {
             friendsForSectionMap[character] = friendsForCharacter
         }
     }
-
+    
     private func getFriendsVK() {
         let opq = OperationQueue()
-
+        
         let getDataOperation = GetDataOperation()
         opq.addOperation(getDataOperation)
-
+        
         let parseDataOperation = ParseDataOperation()
         parseDataOperation.addDependency(getDataOperation)
         opq.addOperation(parseDataOperation)
-
+        
         let saveDataOperation = SaveDataOperation()
         saveDataOperation.addDependency(parseDataOperation)
         OperationQueue.main.addOperation(saveDataOperation)
-
+        
         let loadDataOperation = BlockOperation {
             guard let resultsItemPerson = self.realmService.loadData(objectType: ItemPerson.self) else { return }
             let persons = Array(resultsItemPerson)
@@ -138,8 +140,8 @@ final class FriendsUserViewController: UIViewController {
         loadDataOperation.addDependency(saveDataOperation)
         OperationQueue.main.addOperation(loadDataOperation)
     }
-
-
+    
+    
     private func setupUI(persons: [ItemPerson]) {
         allFriends = persons
         itemPersons = persons
@@ -149,7 +151,7 @@ final class FriendsUserViewController: UIViewController {
         characterSetControl.scrollFromCharacterHandler = scrollFromCharacterHandler
         friendsTableView.reloadData()
     }
-
+    
     private func setupNotificationToken() {
         guard let friendsResults = realmService.loadData(objectType: ItemPerson.self) else { return }
         notificationToken = friendsResults.observe { [weak self] (changes: RealmCollectionChange) in
@@ -184,7 +186,7 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
     func numberOfSections(in tableView: UITableView) -> Int {
         charactersName.count
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard
             section < charactersName.count,
@@ -192,7 +194,7 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
         else { return 0 }
         return countFriendsForSection
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
             let cell = tableView
@@ -204,10 +206,16 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
             indexPath.section < charactersName.count,
             let friendsForSectionMap = friendsForSectionMap[charactersName[indexPath.section]]
         else { return UITableViewCell() }
-        cell.configure(user: friendsForSectionMap[indexPath.row], networkService: vkNetworkService)
+        cell.configure(
+            user: friendsForSectionMap[indexPath.row],
+            image: photoService?.photo(
+                atIndexpath: indexPath,
+                byUrl: friendsForSectionMap[indexPath.row].photo
+            )
+        )
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section < charactersName.count else { return nil }
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 30))
@@ -220,7 +228,7 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
         headerView.addSubview(label)
         return headerView
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         30
     }
@@ -242,7 +250,7 @@ extension FriendsUserViewController: UISearchBarDelegate {
         makeFriendsForSection()
         friendsTableView.reloadData()
     }
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
     }

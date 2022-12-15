@@ -46,6 +46,8 @@
 		2D6C00CA2945898100D5140C /* GetDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C00C92945898100D5140C /* GetDataOperation.swift */; };
 		2D6C00CC294589B100D5140C /* ParseDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C00CB294589B100D5140C /* ParseDataOperation.swift */; };
 		2D6C00CE294589D800D5140C /* SaveDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C00CD294589D800D5140C /* SaveDataOperation.swift */; };
+		2D7013B4294AC21E00FB327E /* PhotoService+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7013B3294AC21E00FB327E /* PhotoService+Extension.swift */; };
+		2D7013B6294ADA1300FB327E /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7013B5294ADA1300FB327E /* PhotoService.swift */; };
 		2D752461291A4E9900289EAC /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D752460291A4E9900289EAC /* ShadowView.swift */; };
 		2D752468291A588F00289EAC /* FriendsUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D752467291A588F00289EAC /* FriendsUserViewController.swift */; };
 		2D75246B291A58C700289EAC /* FriendsUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D75246A291A58C700289EAC /* FriendsUserTableViewCell.swift */; };
@@ -119,6 +121,8 @@
 		2D6C00C92945898100D5140C /* GetDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataOperation.swift; sourceTree = "<group>"; };
 		2D6C00CB294589B100D5140C /* ParseDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseDataOperation.swift; sourceTree = "<group>"; };
 		2D6C00CD294589D800D5140C /* SaveDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDataOperation.swift; sourceTree = "<group>"; };
+		2D7013B3294AC21E00FB327E /* PhotoService+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoService+Extension.swift"; sourceTree = "<group>"; };
+		2D7013B5294ADA1300FB327E /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
 		2D752460291A4E9900289EAC /* ShadowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		2D752467291A588F00289EAC /* FriendsUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsUserViewController.swift; sourceTree = "<group>"; };
 		2D75246A291A58C700289EAC /* FriendsUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsUserTableViewCell.swift; sourceTree = "<group>"; };
@@ -241,6 +245,7 @@
 				2D41B375292F30C300F70446 /* RealmService.swift */,
 				2DC6D83D2934B8F900529C2A /* Session.swift */,
 				2DC6D8392934B44300529C2A /* VKNetworkService.swift */,
+				2D7013B5294ADA1300FB327E /* PhotoService.swift */,
 			);
 			path = Hellper;
 			sourceTree = "<group>";
@@ -368,6 +373,7 @@
 				2D9371CA291E0A460000F3E0 /* CustomNavigationController+Extension.swift */,
 				2D493728293784A4008982C4 /* UIImageView+Extension.swift */,
 				2D6C00C429443BF100D5140C /* DateFormatter+Extension.swift */,
+				2D7013B3294AC21E00FB327E /* PhotoService+Extension.swift */,
 			);
 			path = Exttension;
 			sourceTree = "<group>";
@@ -601,12 +607,14 @@
 				2DC6D83E2934B8F900529C2A /* Session.swift in Sources */,
 				2D9371C8291D1CAF0000F3E0 /* CustomPopAnimator.swift in Sources */,
 				2D41B374292F2FC800F70446 /* WebViewLoginViewController.swift in Sources */,
+				2D7013B6294ADA1300FB327E /* PhotoService.swift in Sources */,
 				2D2E4C05294214150011D888 /* PostNewsTableViewCell.swift in Sources */,
 				2D2E4BEA294210340011D888 /* Photo.swift in Sources */,
 				2D2E4BEB294210340011D888 /* PurpleLikes.swift in Sources */,
 				2D2E4BE6294210340011D888 /* ResponseVKGroup.swift in Sources */,
 				2D493729293784A4008982C4 /* UIImageView+Extension.swift in Sources */,
 				2D97DFBC291B670F00BC82AA /* NewsTableViewCell.swift in Sources */,
+				2D7013B4294AC21E00FB327E /* PhotoService+Extension.swift in Sources */,
 				2D6C00CC294589B100D5140C /* ParseDataOperation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,6 +1,7 @@
 // PhotoNewsTableViewCell.swift
 // Copyright © RoadMap. All rights reserved.
 
+
 import UIKit
 
 /// Новость типа фото
@@ -15,7 +16,7 @@ final class PhotoNewsTableViewCell: UITableViewCell {
         photoImageView.image = nil
     }
 
-    func configure(news: Newsfeed, networkService: VKNetworkService) {
-        photoImageView.setupImage(urlPath: news.photos?.items.first?.sizes.last?.url, networkService: networkService)
+    func configure(url: String, photoService: PhotoService?, indexPath: IndexPath) {
+        photoImageView.image = photoService?.photo(atIndexpath: indexPath, byUrl: url)
     }
 }
