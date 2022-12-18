@@ -22,7 +22,7 @@ final class PhotosUserCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public Methods
 
-    func configure(url: String, photoService: PhotoService?, indexPath: IndexPath) {
+    func configure(url: String, photoService: PhotoService?) {
         friendPhotoImageView.image = photoService?.photo(atIndexpath: indexPath, byUrl: url)
     }
 

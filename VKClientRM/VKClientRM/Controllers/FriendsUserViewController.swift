@@ -118,14 +118,14 @@ final class FriendsUserViewController: UIViewController {
     }
     
     private func getFriendsVK() {
-        let opq = OperationQueue()
+        let operation = OperationQueue()
         
         let getDataOperation = GetDataOperation()
-        opq.addOperation(getDataOperation)
+        operation.addOperation(getDataOperation)
         
         let parseDataOperation = ParseDataOperation()
         parseDataOperation.addDependency(getDataOperation)
-        opq.addOperation(parseDataOperation)
+        operation.addOperation(parseDataOperation)
         
         let saveDataOperation = SaveDataOperation()
         saveDataOperation.addDependency(parseDataOperation)
@@ -208,11 +208,8 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
         else { return UITableViewCell() }
         cell.configure(
             user: friendsForSectionMap[indexPath.row],
-            image: photoService?.photo(
-                atIndexpath: indexPath,
-                byUrl: friendsForSectionMap[indexPath.row].photo
+          photoService: photoService
             )
-        )
         return cell
     }
     

@@ -13,7 +13,7 @@ final class NewsViewController: UIViewController {
     // MARK: - Constants
     
     // MARK: - Constants
-    
+
     private enum Constants {
         static let newsTableViewCellID = "NewsTableViewCell"
         static let footerNewsTableViewCellID = "FooterNewsTableViewCell"
@@ -22,7 +22,7 @@ final class NewsViewController: UIViewController {
         static let photoNewsTableViewCellID = "PhotoNewsTableViewCell"
         static let countCellNumber = 3
     }
-    
+
     
     // MARK: - Private Outlets
     
@@ -31,7 +31,7 @@ final class NewsViewController: UIViewController {
     // MARK: - Private Properties
     
     private let vkNetworkService = VKNetworkService()
-    
+
     private var userNews: [Newsfeed] = []
     private var photoService: PhotoService?
     
@@ -68,7 +68,7 @@ final class NewsViewController: UIViewController {
             forCellReuseIdentifier: Constants.photoNewsTableViewCellID
         )
     }
-    
+
     private func fetchUserNewsVK() {
         vkNetworkService.fetchUserNewsVK { [weak self] result in
             guard let self = self else { return }
@@ -90,15 +90,15 @@ final class NewsViewController: UIViewController {
 
 extension NewsViewController: UITableViewDataSource {
     // MARK: - Public Methods
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         userNews.count
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         Constants.countCellNumber
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
@@ -118,9 +118,9 @@ extension NewsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
     }
-    
+
     // MARK: - Private Methods
-    
+
     private func footerNewsTableViewCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard
             let cell = tableView.dequeueReusableCell(
@@ -132,7 +132,7 @@ extension NewsViewController: UITableViewDataSource {
         cell.configure(news: userNews[indexPath.section])
         return cell
     }
-    
+
     private func postNewsTableViewCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard
             let cell = tableView.dequeueReusableCell(
@@ -144,7 +144,7 @@ extension NewsViewController: UITableViewDataSource {
         cell.configure(news: userNews[indexPath.section])
         return cell
     }
-    
+
     private func photoNewsTableViewCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard
             let cell = tableView.dequeueReusableCell(
@@ -154,7 +154,7 @@ extension NewsViewController: UITableViewDataSource {
             let url = userNews[indexPath.section].photos?.items.first?.sizes.last?.url,
             indexPath.section < userNews.count
         else { return UITableViewCell() }
-        cell.configure(url: url, photoService: photoService, indexPath: indexPath)
+        cell.configure(url: url, photoService: photoService)
         return cell
     }
     

@@ -5,11 +5,6 @@
 import Alamofire
 import Foundation
 
-/// Протокол, декларирующий метод по перезагрузки ячейки
-protocol DataReloadable {
-    func reloadRow(at indexPath: IndexPath)
-}
-
 /// Cервис для загрузки, кеширования изображений
 final class PhotoService {
     // MARK: - Constants
@@ -65,14 +60,12 @@ final class PhotoService {
 
     // MARK: - Public Methods
 
-    func photo(atIndexpath indexPath: IndexPath, byUrl url: String) -> UIImage? {
+    func photo(byUrl url: String) -> UIImage? {
         var image: UIImage?
         if let photo = imagesMap[url] {
             image = photo
         } else if let photo = getImageFromCache(url: url) {
             image = photo
-        } else {
-            loadPhoto(atIndexpath: indexPath, byUrl: url)
         }
         return image
     }
@@ -124,9 +117,6 @@ final class PhotoService {
                 self.imagesMap[url] = image
             }
             self.saveImageToCache(url: url, image: image)
-            DispatchQueue.main.async {
-                self.container.reloadRow(at: indexPath)
-            }
         }
     }
 }

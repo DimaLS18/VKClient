@@ -50,88 +50,87 @@ final class GroupUserTableViewController: UITableViewController {
         else { return UITableViewCell() }
         cell.configure(
             group: vkGroups[indexPath.row],
-            photoService: photoService,
-            indexPath: indexPath
+            photoService: photoService
         )
         return cell
     }
-
-override func tableView(
-    _ tableView: UITableView,
-    commit editingStyle: UITableViewCell.EditingStyle,
-    forRowAt indexPath: IndexPath
-) {
-    if editingStyle == .delete {
-        realmService.deleteGroupVKData(vkGroups.remove(at: indexPath.row))
+    
+    override func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        if editingStyle == .delete {
+            realmService.deleteGroupVKData(vkGroups.remove(at: indexPath.row))
+        }
     }
-}
-
-override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    guard let cell = tableView.cellForRow(at: indexPath) as? GroupUserTableViewCell else { return }
-    cell.animateGroupPhotoImageView()
-}
-
-// MARK: - IBAction
-
-@IBAction private func addGroupAction(segue: UIStoryboardSegue) {
-    guard
-        segue.identifier == Constants.addGroupSegueID,
-        let source = segue.source as? SearchGroupTableViewController,
-        let indexPath = source.tableView.indexPathForSelectedRow,
-        let group = source.returnGroup(index: indexPath.row),
-        !vkGroups.contains(group)
-    else { return }
-    vkGroups.append(group)
-    realmService.saveGroupVKData(vkGroups)
-}
-
-// MARK: - Private Methods
-
-private func setupView() {
-    setupNotificationToken()
-    loadData()
-    photoService = PhotoService(container: self)
-}
-
-private func loadData() {
-    tableView.reloadData()
-    getUserGroupsVK()
-}
-
-private func getUserGroupsVK() {
-    firstly {
-        vkNetworkService.fetchDataUserGroupsVK()
-    }.then { data in
-        self.vkNetworkService.parseUserGroupsVK(data: data)
-    }.done { vkGroups in
-        self.realmService.saveGroupVKData(vkGroups)
-        guard let resultsVkGroups = self.realmService.loadData(objectType: VKGroups.self) else { return }
-        self.vkGroups = Array(resultsVkGroups)
-        self.tableView.reloadData()
-    }.catch { error in
-        self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? GroupUserTableViewCell else { return }
+        cell.animateGroupPhotoImageView()
     }
-}
-
-private func setupNotificationToken() {
-    guard let groupsResults = realmService.loadData(objectType: VKGroups.self) else { return }
-    notificationToken = groupsResults.observe { [weak self] (changes: RealmCollectionChange) in
-        guard let self = self else { return }
-        self.vkGroups = Array(groupsResults)
-        switch changes {
-        case .initial:
+    
+    // MARK: - IBAction
+    
+    @IBAction private func addGroupAction(segue: UIStoryboardSegue) {
+        guard
+            segue.identifier == Constants.addGroupSegueID,
+            let source = segue.source as? SearchGroupTableViewController,
+            let indexPath = source.tableView.indexPathForSelectedRow,
+            let group = source.returnGroup(index: indexPath.row),
+            !vkGroups.contains(group)
+        else { return }
+        vkGroups.append(group)
+        realmService.saveGroupVKData(vkGroups)
+    }
+    
+    // MARK: - Private Methods
+    
+    private func setupView() {
+        setupNotificationToken()
+        loadData()
+        photoService = PhotoService(container: self)
+    }
+    
+    private func loadData() {
+        tableView.reloadData()
+        getUserGroupsVK()
+    }
+    
+    private func getUserGroupsVK() {
+        firstly {
+            vkNetworkService.fetchDataUserGroupsVK()
+        }.then { data in
+            self.vkNetworkService.parseUserGroupsVK(data: data)
+        }.done { vkGroups in
+            self.realmService.saveGroupVKData(vkGroups)
+            guard let resultsVkGroups = self.realmService.loadData(objectType: VKGroups.self) else { return }
+            self.vkGroups = Array(resultsVkGroups)
             self.tableView.reloadData()
-        case let .update(_, deletions, insertions, modifications):
-            self.tableView.beginUpdates()
-            self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
-            self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
-            self.tableView.reloadRows(
-                at: modifications.map { IndexPath(row: $0, section: 0) },
-                with: .automatic
-            )
-            self.tableView.endUpdates()
-        case .error: break
+        }.catch { error in
+            self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
+        }
+    }
+    
+    private func setupNotificationToken() {
+        guard let groupsResults = realmService.loadData(objectType: VKGroups.self) else { return }
+        notificationToken = groupsResults.observe { [weak self] (changes: RealmCollectionChange) in
+            guard let self = self else { return }
+            self.vkGroups = Array(groupsResults)
+            switch changes {
+            case .initial:
+                self.tableView.reloadData()
+            case let .update(_, deletions, insertions, modifications):
+                self.tableView.beginUpdates()
+                self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
+                self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
+                self.tableView.reloadRows(
+                    at: modifications.map { IndexPath(row: $0, section: 0) },
+                    with: .automatic
+                )
+                self.tableView.endUpdates()
+            case .error: break
+            }
         }
     }
 }
-

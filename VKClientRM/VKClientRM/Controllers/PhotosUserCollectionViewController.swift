@@ -53,7 +53,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             ) as? PhotosUserCollectionViewCell,
             indexPath.row < currentPerson.photos.count
         else { return UICollectionViewCell() }
-        cell.configure(url: currentPerson.photos[indexPath.row].url, photoService: photoService, indexPath: indexPath)
+        cell.configure(url: currentPerson.photos.url, photoService: photoService)
         return cell
     }
 
@@ -82,7 +82,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
         else { return }
         destination.configureAnimatedPhotosUserVC(
             currentUserPhotoIndex: pressedCellCurrentIndex,
-                userPhotosName: currentPerson.photos        )
+                userPhotosName: currentPerson.photos     )
     }
 
     // MARK: - Private Methods
