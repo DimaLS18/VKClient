@@ -23,6 +23,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     private var currentPerson = ItemPerson()
     private var pressedCellCurrentIndex = 0
     private var notificationToken: NotificationToken?
+    private var photoService: PhotoService?
 
     // MARK: - Lifecycle
 
@@ -52,7 +53,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             ) as? PhotosUserCollectionViewCell,
             indexPath.row < currentPerson.photos.count
         else { return UICollectionViewCell() }
-        cell.configure(userPhoto: currentPerson.photos[indexPath.row].url, networkService: vkNetworkService)
+        cell.configure(url: currentPerson.photos.url, photoService: photoService)
         return cell
     }
 
@@ -81,7 +82,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
         else { return }
         destination.configureAnimatedPhotosUserVC(
             currentUserPhotoIndex: pressedCellCurrentIndex,
-                userPhotosName: currentPerson.photos        )
+                userPhotosName: currentPerson.photos     )
     }
 
     // MARK: - Private Methods

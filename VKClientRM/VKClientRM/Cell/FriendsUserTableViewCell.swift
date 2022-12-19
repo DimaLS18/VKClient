@@ -31,9 +31,9 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configure(user: ItemPerson, networkService: VKNetworkService) {
+    func configure(user: ItemPerson, photoService: PhotoService) {
         friendNameLabel.text = user.fullName
-        friendPhotoImageView.setupImage(urlPath: user.photo, networkService: networkService)
+        friendPhotoImageView.image = image
         self.itemPerson = user
     }
 

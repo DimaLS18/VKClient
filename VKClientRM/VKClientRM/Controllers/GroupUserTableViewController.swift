@@ -24,6 +24,7 @@ final class GroupUserTableViewController: UITableViewController {
     private var vkGroups: [VKGroups] = []
     private var notificationToken: NotificationToken?
     private var groupsResults: Results<VKGroups>?
+    private var photoService: PhotoService?
     
     // MARK: - Lifecycle
     
@@ -47,7 +48,10 @@ final class GroupUserTableViewController: UITableViewController {
                 ) as? GroupUserTableViewCell,
             indexPath.row < vkGroups.count
         else { return UITableViewCell() }
-        cell.configure(group: vkGroups[indexPath.row], vkNetworkService: vkNetworkService)
+        cell.configure(
+            group: vkGroups[indexPath.row],
+            photoService: photoService
+        )
         return cell
     }
     
@@ -85,6 +89,7 @@ final class GroupUserTableViewController: UITableViewController {
     private func setupView() {
         setupNotificationToken()
         loadData()
+        photoService = PhotoService(container: self)
     }
     
     private func loadData() {
