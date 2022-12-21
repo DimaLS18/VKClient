@@ -5,6 +5,6 @@ import Foundation
 
 /// Фотографии
 final class PhotosItem: Decodable {
-    /// размеры фотографии
+    /// Размеры фотографии
     let sizes: [Size]
 }

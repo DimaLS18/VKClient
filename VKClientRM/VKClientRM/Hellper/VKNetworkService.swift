@@ -9,7 +9,7 @@ import PromiseKit
 /// Менеджер сетевых запросов по API VK
 final class VKNetworkService {
     // MARK: - Constants
-
+    
     private enum Constants {
         static let methodText = "/method/"
         static let fieldsText = "fields"
@@ -47,38 +47,40 @@ final class VKNetworkService {
         static let photoText = "photo_100"
         static let countNumberText = "40"
         static let usersGetText = "users.get"
+        static let startTimeText = "start_time"
+        static let startFromText = "start_from"
     }
-
+    
     // MARK: - Private Properties
-
+    
     private var generalParameters: Parameters = [
         Constants.fieldsText: Constants.bdateText,
         Constants.accessTokenText: Session.shared.token,
         Constants.vText: Constants.bdateNumberText
     ]
-
+    
     private lazy var parametersGroupVK: Parameters = {
         var parameters = generalParameters
         parameters[Constants.userIdText] = "\(Session.shared.userId)"
         parameters[Constants.extendedText] = Constants.numberOneText
         return parameters
     }()
-
+    
     private lazy var parametersFriendsVK: Parameters = {
         var parameters = generalParameters
         parameters[Constants.userIdText] = "\(Session.shared.userId)"
         parameters[Constants.fieldsText] = Constants.photoText
         return parameters
     }()
-
+    
     private lazy var parametersUsersGetVK: Parameters = {
         var parameters = generalParameters
         parameters[Constants.fieldsText] = Constants.photoText
         return parameters
     }()
-
+    
     // MARK: - Public Methods
-
+    
     func fetchFriendsVK(completion: @escaping (Result<[ItemPerson]>) -> ()) {
         let path = "\(Constants.methodText)\(Constants.friendsGetText)"
         let url = "\(Constants.baseUrl)\(path)"
@@ -92,7 +94,7 @@ final class VKNetworkService {
             }
         }
     }
-
+    
     func fetchPhotosVK(person: ItemPerson, completion: @escaping (Result<ItemPerson>) -> ()) {
         let path = "\(Constants.methodText)\(Constants.photosGetAllText)"
         let url = "\(Constants.baseUrl)\(path)"
@@ -112,7 +114,7 @@ final class VKNetworkService {
             }
         }
     }
-
+    
     func fetchUserGroupsVK(completion: @escaping (Result<[VKGroups]>) -> Void) {
         let path = "\(Constants.methodText)\(Constants.groupsGetText)"
         let url = "\(Constants.baseUrl)\(path)"
@@ -126,7 +128,7 @@ final class VKNetworkService {
             }
         }
     }
-
+    
     func fetchSearchGroupsVK(searchText: String, completion: @escaping (Result<[VKGroups]>) -> Void) {
         let path = "\(Constants.methodText)\(Constants.groupsSearchText)"
         let url = "\(Constants.baseUrl)\(path)"
@@ -142,7 +144,7 @@ final class VKNetworkService {
             }
         }
     }
-
+    
     func fetchUserNewsVK(completion: @escaping (Result<[Newsfeed]>) -> Void) {
         let path = "\(Constants.methodText)\(Constants.newsfeedGetText)"
         let url = "\(Constants.baseUrl)\(path)"
@@ -158,7 +160,7 @@ final class VKNetworkService {
             }
         }
     }
-
+    
     func fetchAuthorVK(authorID: String, completion: @escaping (Result<ResponseUsersGet>) -> Void) {
         let path = "\(Constants.methodText)\(Constants.usersGetText)"
         let url = "\(Constants.baseUrl)\(path)"
@@ -175,26 +177,59 @@ final class VKNetworkService {
             }
         }
     }
-
+    
     func fetchDataUserGroupsVK() -> Promise<Data> {
-            let path = "\(Constants.methodText)\(Constants.groupsGetText)"
-            let url = "\(Constants.baseUrl)\(path)"
-            return Promise<Data> { resolver in
-                AF.request(url, method: .get, parameters: parametersGroupVK).responseData { response in
-                    guard let data = response.value else { return }
-                    return resolver.fulfill(data)
-                }
+        let path = "\(Constants.methodText)\(Constants.groupsGetText)"
+        let url = "\(Constants.baseUrl)\(path)"
+        return Promise<Data> { resolver in
+            AF.request(url, method: .get, parameters: parametersGroupVK).responseData { response in
+                guard let data = response.value else { return }
+                return resolver.fulfill(data)
             }
         }
-
-        func parseUserGroupsVK(data: Data) -> Promise<[VKGroups]> {
-            Promise<[VKGroups]> { resolver in
-                guard let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items else { return }
-                return resolver.fulfill(items)
+    }
+    
+    func parseUserGroupsVK(data: Data) -> Promise<[VKGroups]> {
+        Promise<[VKGroups]> { resolver in
+            guard let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items else { return }
+            return resolver.fulfill(items)
+        }
+    }
+    
+    func fetchNewNewsVK(startTime: Double, completion: @escaping (Result<[Newsfeed]>) -> Void) {
+        let path = "\(Constants.methodText)\(Constants.newsfeedGetText)"
+        let url = "\(Constants.baseUrl)\(path)"
+        var parametersNewNewsVK = generalParameters
+        parametersNewNewsVK[Constants.startTimeText] = "\(startTime)"
+        AF.request(url, method: .get, parameters: parametersNewNewsVK).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                let items = try JSONDecoder().decode(VKNews.self, from: data).response.items
+                completion(.fulfilled(items))
+            } catch {
+                completion(.rejected(error))
             }
         }
-
-
+    }
+    
+    func fetchNewsVK(nextFrom: String, completion: @escaping (Result<ResponseVKNews>) -> Void) {
+        let path = "\(Constants.methodText)\(Constants.newsfeedGetText)"
+        let url = "\(Constants.baseUrl)\(path)"
+        var parametersNewsVK = generalParameters
+        parametersNewsVK[Constants.startFromText] = nextFrom
+        AF.request(url, method: .get, parameters: parametersNewsVK).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                let response = try JSONDecoder().decode(VKNews.self, from: data).response
+                completion(.fulfilled(response))
+            } catch {
+                completion(.rejected(error))
+            }
+        }
+    }
+    
+    
+    
     func createUrlComponents() -> URLComponents {
         var urlComponents = URLComponents()
         urlComponents.scheme = Constants.httpsText
@@ -210,7 +245,7 @@ final class VKNetworkService {
         ]
         return urlComponents
     }
-
+    
     func loadData(urlPath: String?, completion: @escaping (Data?) -> ()) {
         guard
             let urlPath = urlPath,
