@@ -6,12 +6,20 @@
 //
 
 import Foundation
-
-/// Форматирование даты
+/// форматирование даты
 extension DateFormatter {
-    static let bigDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMMM yyyy HH:mm"
-        return formatter
-    }()
+    // MARK: - Constants
+    
+    private enum Constants {
+        static let dateFormatText = "HH:mm   dd MMMM"
+    }
+    
+    // MARK: - Public Methods
+    
+    static func getNewsDate(dateInt: Int) -> String {
+        let date = Date(timeIntervalSinceReferenceDate: Double(dateInt))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = Constants.dateFormatText
+        return dateFormatter.string(from: date)
+    }
 }

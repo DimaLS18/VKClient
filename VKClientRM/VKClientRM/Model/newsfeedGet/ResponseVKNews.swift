@@ -7,4 +7,15 @@ import Foundation
 final class ResponseVKNews: Decodable {
     /// Новости
     let items: [Newsfeed]
+    /// Идентификатор получения следующей страницы новостей
+    let nextFrom: String?
+    
+    // MARK: - CodingKeys
+    
+    enum CodingKeys: String, CodingKey {
+        private enum CodingKeys: String, CodingKey {
+            case items
+            case nextFrom = "next_from"
+        }
+    }
 }

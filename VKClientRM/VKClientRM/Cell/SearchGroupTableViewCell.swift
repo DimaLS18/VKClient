@@ -7,9 +7,6 @@ import UIKit
 final class SearchGroupTableViewCell: UITableViewCell {
     // MARK: - Constants
 
-    private enum Constants {
-        static let emptyText = ""
-    }
 
     // MARK: - Private Outlets
 
@@ -19,10 +16,6 @@ final class SearchGroupTableViewCell: UITableViewCell {
     // MARK: - Public Properties
 
     var group = VKGroups()
-
-    // MARK: - Private Properties
-
-    private let vkNetworkService = VKNetworkService()
 
     // MARK: - Public Methods
 

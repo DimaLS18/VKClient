@@ -5,11 +5,6 @@ import UIKit
 
 /// Ячейка с данными друга
 final class FriendsUserTableViewCell: UITableViewCell {
-    // MARK: - Constants
-
-    private enum Constants {
-        static let emptyText = ""
-    }
 
     // MARK: - Private Outlets
 
